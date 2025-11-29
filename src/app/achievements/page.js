@@ -1,0 +1,69 @@
+"use client";
+
+// Main Achievement Dashboard
+function AchievementDashboard() {
+  return <div>Achievement Dashboard Under Construction</div>;
+  // const { isConnected, achievementState } = useSocketContext();
+  // const { myAchievements, achievementStats, getMyAchievements } = achievementState
+  // const [selectedCategory, setSelectedCategory] = useState('all');
+  
+  // const categories = ['all', 'consistency', 'performance', 'social', 'progression', 'mastery']; // 'streak', 'coding', 'special'
+
+  // const filteredAchievements = selectedCategory === "all" ? myAchievements : myAchievements.filter((a) => a.achievement?.category === selectedCategory);
+
+  // useEffect(()=>{
+  //   getMyAchievements();
+  // },[isConnected])
+
+  // return (
+  //   <div className="min-h-screen bg-gray-08 text-white-99 p-6">
+  //     <div className="max-w-7xl mx-auto space-y-6">
+  //       {/* Header */}
+  //       <div className="flex items-center justify-between">
+  //         <div>
+  //           <h1 className="text-3xl font-bold mb-2">Achievements</h1>
+  //           <p className="text-gray-60">Track your progress and unlock rewards</p>
+  //         </div>
+  //         <Award className="w-12 h-12 text-purple-60" />
+  //       </div>
+
+  //       {/* Stats */}
+  //       <AchievementStats stats={achievementStats} />
+
+  //       {/* Category Filter */}
+  //       <div className="flex gap-2 overflow-x-auto pb-2">
+  //         {categories.map(category => (
+  //           <SoundButton
+  //             key={category}
+  //             onClick={() => setSelectedCategory(category)}
+  //             className={`
+  //               px-4 py-2 rounded-lg font-medium whitespace-nowrap transition-all
+  //               ${selectedCategory === category
+  //                 ? 'bg-purple-60 text-white'
+  //                 : 'bg-gray-15 text-gray-60 hover:bg-gray-20'
+  //               }
+  //             `}
+  //           >
+  //             {category.charAt(0).toUpperCase() + category.slice(1)}
+  //           </SoundButton>
+  //         ))}
+  //       </div>
+
+  //       {/* Achievement Grid */}
+  //       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+  //         {filteredAchievements.map((a) => (
+  //           <AchievementCard
+  //             key={a.achievementId}
+  //             achievement={a.achievement}
+  //             unlocked={!!a.unlockedAt}
+  //             unlockedAt={a.unlockedAt}
+  //             progress={a.progress || 0}
+  //           />
+  //         ))}
+  //       </div>
+  //     </div>
+  //   </div>
+  // );
+}
+
+export default AchievementDashboard;

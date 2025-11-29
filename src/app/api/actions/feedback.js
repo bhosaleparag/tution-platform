@@ -1,0 +1,27 @@
+"use server";
+import { db } from "@/lib/firebase";
+import { collection, addDoc } from "firebase/firestore";
+
+export async function submitFeedback(formData) {
+  try {
+    const feedback = {
+      userId: formData.get("userId") || "anonymous",
+      name: formData.get("name"),
+      email: formData.get("email"),
+      category: formData.get("category"),
+      message: formData.get("message"),
+      rating: Number(formData.get("rating")) || 5,
+      createdAt: new Date().toISOString(),
+      status: "new",
+    };
+
+    // Save to Firestore
+    const feedbackRef = collection(db, 'feedback');
+    await addDoc(feedbackRef, feedback);
+
+    return { success: true, message: "Thanks for your feedback!" };
+  } catch (err) {
+    console.error("Error submitting feedback:", err);
+    return { success: false, message: "Failed to submit feedback" };
+  }
+}
