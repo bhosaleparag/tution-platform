@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { verifyTokenAndGetRole } from '@/lib/auth-helpers';
+import { verifyTokenAndGetRole } from '../../../../lib/auth-helpers';
 
 /**
  * API route to verify user role
