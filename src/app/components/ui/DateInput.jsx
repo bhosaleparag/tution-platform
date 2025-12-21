@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useRef, useEffect } from 'react';
 import { CalendarDays, ChevronLeft, ChevronRight } from 'lucide-react';
-import { SoundButton } from './SoundButton';
 
 const DateInput = ({ value, onChange, placeholder, className = "" }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -132,23 +131,23 @@ const DateInput = ({ value, onChange, placeholder, className = "" }) => {
         <div className="absolute top-full left-0 mt-2 w-80 bg-gray-08 border border-gray-20 rounded-2xl shadow-2xl z-[50] overflow-hidden">
           {/* Header */}
           <div className="flex items-center justify-between p-4 bg-gray-10 border-b border-gray-20">
-            <SoundButton
+            <button
               onClick={() => navigateMonth(-1)}
               className="p-2 hover:bg-gray-15 rounded-lg transition-colors"
             >
               <ChevronLeft className="w-4 h-4 text-white" />
-            </SoundButton>
+            </button>
             
             <h3 className="text-white font-semibold">
               {months[currentMonth.getMonth()]} {currentMonth.getFullYear()}
             </h3>
             
-            <SoundButton
+            <button
               onClick={() => navigateMonth(1)}
               className="p-2 hover:bg-gray-15 rounded-lg transition-colors"
             >
               <ChevronRight className="w-4 h-4 text-white" />
-            </SoundButton>
+            </button>
           </div>
 
           {/* Calendar Grid */}
@@ -167,7 +166,7 @@ const DateInput = ({ value, onChange, placeholder, className = "" }) => {
               {getDaysInMonth(currentMonth).map((date, index) => (
                 <div key={index} className="aspect-square">
                   {date ? (
-                    <SoundButton
+                    <button
                       onClick={() => handleDateSelect(date)}
                       className={`
                         w-full h-full flex items-center justify-center rounded-lg text-sm font-medium
@@ -181,7 +180,7 @@ const DateInput = ({ value, onChange, placeholder, className = "" }) => {
                       `}
                     >
                       {date.getDate()}
-                    </SoundButton>
+                    </button>
                   ) : (
                     <div />
                   )}
@@ -192,18 +191,18 @@ const DateInput = ({ value, onChange, placeholder, className = "" }) => {
 
           {/* Footer Actions */}
           <div className="flex items-center justify-between p-4 bg-gray-10 border-t border-gray-20">
-            <SoundButton
+            <button
               onClick={clearDate}
               className="text-sm font-medium text-gray-50 hover:text-white transition-colors"
             >
               Clear
-            </SoundButton>
-            <SoundButton
+            </button>
+            <button
               onClick={goToToday}
               className="px-4 py-2 bg-purple-60 hover:bg-purple-70 text-white text-sm font-medium rounded-lg transition-colors"
             >
               Today
-            </SoundButton>
+            </button>
           </div>
         </div>
       )}

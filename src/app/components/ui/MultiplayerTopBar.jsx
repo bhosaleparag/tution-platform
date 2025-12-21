@@ -3,8 +3,6 @@ import { formatTime } from "@/utils/time";
 import ChatWidget from "../realtime/ChatWidget";
 import { useEffect, useRef, useState } from "react";
 import { Award, Clock, Flag, MessageSquare, Target, TrendingUp, Trophy, Zap, Crown, Medal } from "lucide-react";
-import { SoundButton } from "./SoundButton";
-import { useSound } from "@/context/SoundContext";
 import PlayerCard from "./PlayerCard";
 
 // Get event icon
@@ -43,7 +41,6 @@ const MultiplayerTopBar = ({
   gameState = '',
   onTimeUp
 }) => {
-  const { play } = useSound();
   const [timeRemaining, setTimeRemaining] = useState(null);
   const [chatOpen, setChatOpen] = useState(false);
   const [showEvents, setShowEvents] = useState(false);
@@ -80,9 +77,6 @@ const MultiplayerTopBar = ({
       if (remaining === 0) {
         clearInterval(interval);
         onTimeUp?.();
-      }
-      if(remaining <= 5){
-        play('timeout')
       }
     }, 1000);
 
@@ -138,7 +132,7 @@ const MultiplayerTopBar = ({
 
               {/* Action Buttons */}
               <div className="flex items-center gap-2">
-                <SoundButton
+                <button
                   onClick={() => setShowEvents(!showEvents)}
                   className="relative p-2 bg-gray-15 border border-gray-20 rounded-lg"
                 >
@@ -148,9 +142,9 @@ const MultiplayerTopBar = ({
                       {roomEvents.length > 9 ? '9' : roomEvents.length}
                     </span>
                   )}
-                </SoundButton>
+                </button>
 
-                <SoundButton
+                <button
                   onClick={() => {
                     setChatOpen(!chatOpen);
                     if (onChatOpen) onChatOpen();
@@ -158,14 +152,14 @@ const MultiplayerTopBar = ({
                   className="p-2 bg-gray-15 border border-gray-20 rounded-lg"
                 >
                   <MessageSquare className="w-4 h-4 text-gray-50" />
-                </SoundButton>
+                </button>
 
-                <SoundButton
+                <button
                   onClick={onSurrender}
                   className="p-2 bg-red-500/10 border border-red-500/30 text-red-400 rounded-lg"
                 >
                   <Flag className="w-4 h-4" />
-                </SoundButton>
+                </button>
               </div>
             </div>
           </div>
@@ -231,7 +225,7 @@ const MultiplayerTopBar = ({
             {/* Right Side - Actions */}
             <div className="flex items-center gap-3">
               {/* Events Button */}
-              <SoundButton
+              <button
                 onClick={() => setShowEvents(!showEvents)}
                 className="relative p-2.5 bg-gray-15 border border-gray-20 rounded-lg hover:border-purple-60 transition-all duration-200 group"
               >
@@ -241,10 +235,10 @@ const MultiplayerTopBar = ({
                     {roomEvents.length > 9 ? '9+' : roomEvents.length}
                   </span>
                 )}
-              </SoundButton>
+              </button>
 
               {/* Chat Button */}
-              <SoundButton
+              <button
                 onClick={() => {
                   setChatOpen(!chatOpen);
                   if (onChatOpen) onChatOpen();
@@ -252,16 +246,16 @@ const MultiplayerTopBar = ({
                 className="relative p-2.5 bg-gray-15 border border-gray-20 rounded-lg hover:border-purple-60 transition-all duration-200 group"
               >
                 <MessageSquare className="w-5 h-5 text-gray-50 group-hover:text-purple-60 transition-colors" />
-              </SoundButton>
+              </button>
 
               {/* Surrender Button */}
-              <SoundButton
+              <button
                 onClick={onSurrender}
                 className="flex items-center gap-2 px-4 py-2.5 bg-red-500/10 border border-red-500/30 text-red-400 rounded-lg hover:bg-red-500/20 hover:border-red-500/50 transition-all duration-200 font-medium text-sm"
               >
                 <Flag className="w-4 h-4" />
                 <span>Surrender</span>
-              </SoundButton>
+              </button>
             </div>
           </div>
         </div>
@@ -277,12 +271,12 @@ const MultiplayerTopBar = ({
                 <Zap className="w-4 h-4 text-purple-60" />
                 Game Events
               </h3>
-              <SoundButton 
+              <button 
                 onClick={() => setShowEvents(false)}
                 className="text-gray-50 hover:text-white transition-colors"
               >
                 ✕
-              </SoundButton>
+              </button>
             </div>
             
             <div className="overflow-y-auto max-h-64 scrollbar-thin scrollbar-thumb-gray-30 scrollbar-track-gray-20">

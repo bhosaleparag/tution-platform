@@ -70,17 +70,17 @@ const SubjectFormDialog = ({ open, onOpenChange, subject, onSubmit, institutes }
             options={instituteOptions}
             placeholder="Select institute"
           />
-          <p className="text-xs text-[#999999]">
+          <p className="text-xs text-gray-60">
             Leave as "Global" to make this subject available to all institutes
           </p>
 
           {/* Active Status Toggle */}
-          <div className="flex items-center justify-between p-4 bg-[#141414] rounded-xl border border-[#262626]">
+          <div className="flex items-center justify-between p-4 bg-gray-08 rounded-xl border border-[#262626]">
             <div>
-              <label className="text-sm font-medium text-[#e4e4e7] block">
+              <label className="text-sm font-medium text-white-90 block">
                 Active Status
               </label>
-              <p className="text-xs text-[#999999] mt-1">
+              <p className="text-xs text-gray-60 mt-1">
                 {formData.isActive ? 'Subject is currently active' : 'Subject is currently inactive'}
               </p>
             </div>
@@ -95,7 +95,7 @@ const SubjectFormDialog = ({ open, onOpenChange, subject, onSubmit, institutes }
           <button
             type="button"
             onClick={() => onOpenChange(false)}
-            className="px-5 py-2.5 rounded-xl border border-[#333333] text-[#e4e4e7] hover:bg-[#262626] transition font-medium"
+            className="px-5 py-2.5 rounded-xl border border-gray-20 text-white-90 hover:bg-[#262626] transition font-medium"
             disabled={loading}
           >
             Cancel
@@ -104,7 +104,7 @@ const SubjectFormDialog = ({ open, onOpenChange, subject, onSubmit, institutes }
             type="button"
             onClick={handleSubmit}
             disabled={loading || !formData.name.trim()}
-            className="px-5 py-2.5 rounded-xl bg-[#703bf7] text-white hover:bg-[#8254f8] transition font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-5 py-2.5 rounded-xl bg-purple-60 text-white hover:bg-[#8254f8] transition font-medium disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? 'Saving...' : subject ? 'Update Subject' : 'Create Subject'}
           </button>

@@ -9,7 +9,6 @@ import useAuth from "@/hooks/useAuth";
 import Form from "next/form";
 import { Eye, EyeOff, Mail, Lock, User, UserPlus, Check, X } from "lucide-react";
 import Button from "../ui/Button";
-import { SoundButton } from "../ui/SoundButton";
 
 export default function RegisterForm() {
   const router = useRouter();
@@ -115,9 +114,9 @@ export default function RegisterForm() {
             onChange={(e) => setPassword(e.target.value)}
             startIcon={<Lock size={18} />}
             endIcon={
-              <SoundButton type="button" onClick={() => setShowPassword(!showPassword)}>
+              <button type="button" onClick={() => setShowPassword(!showPassword)}>
                 {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-              </SoundButton>
+              </button>
             }
           />
           
@@ -158,9 +157,9 @@ export default function RegisterForm() {
               startIcon={<Lock size={18} />}
               endIcon={
                 <div className="flex items-center gap-2">
-                  <SoundButton type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
+                  <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
                     {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                  </SoundButton>
+                  </button>
                 </div>
               }
             />

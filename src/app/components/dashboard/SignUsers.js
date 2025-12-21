@@ -1,6 +1,5 @@
 "use client";
 import { Code2, Users, Zap, Target, Award, ArrowRight, Play, Crown, Flame, UserPlus, Swords, Clock, CheckCircle2, Trophy, AlertCircle } from 'lucide-react';
-import { SoundButton } from '../ui/SoundButton';
 import { useRouter } from 'next/navigation';
 import { useSocketContext } from '@/context/SocketProvider';
 import DashboardCard from './DashboardCard';
@@ -75,9 +74,9 @@ export default function SignedInDashboard({ user }) {
                   <p className="text-gray-60 text-xs sm:text-sm">Fill in your account settings to unlock all features</p>
                 </div>
               </div>
-              <SoundButton onClick={()=>router.push('/settings')} className="px-4 py-2 bg-purple-60 hover:bg-purple-65 text-white-99 rounded-lg text-sm font-medium transition-colors flex-shrink-0">
+              <button onClick={()=>router.push('/settings')} className="px-4 py-2 bg-purple-60 hover:bg-purple-65 text-white-99 rounded-lg text-sm font-medium transition-colors flex-shrink-0">
                 Complete Now
-              </SoundButton>
+              </button>
             </div>
           </div>
         )}
@@ -136,27 +135,27 @@ export default function SignedInDashboard({ user }) {
 
         {/* Quick Actions */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-6 sm:mb-8">
-          <SoundButton onClick={()=>router.push('/explore')} className="group relative bg-gradient-to-br from-gray-08 to-gray-10 border border-gray-15 rounded-xl p-4 hover:border-purple-60/30 transition-all duration-300 overflow-hidden">
+          <button onClick={()=>router.push('/explore')} className="group relative bg-gradient-to-br from-gray-08 to-gray-10 border border-gray-15 rounded-xl p-4 hover:border-purple-60/30 transition-all duration-300 overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-br from-purple-60/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             <div className="relative flex items-center justify-center gap-3">
               <Target className="w-5 h-5 text-purple-75" />
               <span className="font-semibold text-white-99">Challenge</span>
             </div>
-          </SoundButton>
-          <SoundButton onClick={()=>router.push('/battles')} className="group relative bg-gradient-to-br from-gray-08 to-gray-10 border border-gray-15 rounded-xl p-4 hover:border-purple-60/30 transition-all duration-300 overflow-hidden">
+          </button>
+          <button onClick={()=>router.push('/battles')} className="group relative bg-gradient-to-br from-gray-08 to-gray-10 border border-gray-15 rounded-xl p-4 hover:border-purple-60/30 transition-all duration-300 overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-br from-purple-60/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             <div className="relative flex items-center justify-center gap-3">
               <Zap className="w-5 h-5 text-purple-75" />
               <span className="font-semibold text-white-99">Quick Match</span>
             </div>
-          </SoundButton>
-          <SoundButton onClick={()=>router.push('/battles?openCreateRoom=true')} className="group relative bg-gradient-to-br from-gray-08 to-gray-10 border border-gray-15 rounded-xl p-4 hover:border-purple-60/30 transition-all duration-300 overflow-hidden">
+          </button>
+          <button onClick={()=>router.push('/battles?openCreateRoom=true')} className="group relative bg-gradient-to-br from-gray-08 to-gray-10 border border-gray-15 rounded-xl p-4 hover:border-purple-60/30 transition-all duration-300 overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-br from-purple-60/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             <div className="relative flex items-center justify-center gap-3">
               <UserPlus className="w-5 h-5 text-purple-75" />
               <span className="font-semibold text-white-99">Create Room</span>
             </div>
-          </SoundButton>
+          </button>
         </div>
 
         {/* Dashboard Grid */}
@@ -178,11 +177,11 @@ export default function SignedInDashboard({ user }) {
                     <div>
                       <h3 className="font-semibold mb-2 text-base sm:text-lg text-white-99">{quiz?.title}</h3>
                       <p className="text-sm text-gray-60 mb-4">{quiz?.description}</p>
-                      <SoundButton onClick={()=>router.push(`/quiz/${quiz?._id}`)} className="w-full px-4 py-3 bg-purple-60 hover:bg-purple-65 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 group">
+                      <button onClick={()=>router.push(`/quiz/${quiz?._id}`)} className="w-full px-4 py-3 bg-purple-60 hover:bg-purple-65 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 group">
                         <Play className="w-4 h-4" />
                         <span>Start Challenge</span>
                         <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
-                      </SoundButton>
+                      </button>
                     </div>
                   </>
                 ) : (
@@ -225,10 +224,10 @@ export default function SignedInDashboard({ user }) {
                     <p className="text-sm text-gray-400">Start coding to unlock your first achievement!</p>
                   </div>
                 )}
-                <SoundButton onClick={()=>router.push('/achievements')} className="w-full py-2 text-sm text-purple-75 hover:text-purple-70 transition-colors flex items-center justify-center gap-1">
+                <button onClick={()=>router.push('/achievements')} className="w-full py-2 text-sm text-purple-75 hover:text-purple-70 transition-colors flex items-center justify-center gap-1">
                   View All Achievements
                   <ArrowRight className="w-4 h-4" />
-                </SoundButton>
+                </button>
               </div>
             </DashboardCard>
           </div>
@@ -282,10 +281,10 @@ export default function SignedInDashboard({ user }) {
                   </div>
                 </div>
               )}
-              <SoundButton onClick={()=>router.push('/friends')} className="w-full py-2 text-sm text-purple-75 hover:text-purple-70 transition-colors flex items-center justify-center gap-1">
+              <button onClick={()=>router.push('/friends')} className="w-full py-2 text-sm text-purple-75 hover:text-purple-70 transition-colors flex items-center justify-center gap-1">
                 Add Friends
                 <ArrowRight className="w-4 h-4" />
-              </SoundButton>
+              </button>
             </DashboardCard>
 
             {/* Leaderboard */}
@@ -313,10 +312,10 @@ export default function SignedInDashboard({ user }) {
                     </div>
                   </div>
                 ))}
-                <SoundButton  onClick={()=>router.push('/leaderboard')} className="w-full py-2 text-sm text-purple-75 hover:text-purple-70 transition-colors flex items-center justify-center gap-1">
+                <button  onClick={()=>router.push('/leaderboard')} className="w-full py-2 text-sm text-purple-75 hover:text-purple-70 transition-colors flex items-center justify-center gap-1">
                   View Full Leaderboard
                   <ArrowRight className="w-4 h-4" />
-                </SoundButton>
+                </button>
               </div>
             </DashboardCard>
           </div>

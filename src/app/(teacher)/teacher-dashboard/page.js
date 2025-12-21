@@ -5,7 +5,6 @@ import { BookOpen, PlusCircle, Calendar, CheckCircle2 } from 'lucide-react';
 import useAuth from '@/hooks/useAuth';
 import { getTeacherQuizzes, getTeacherQuizEvents } from '@/lib/db/quizHelpers';
 import DashboardCard from '@/components/dashboard/DashboardCard';
-import { SoundButton } from '@/components/ui/SoundButton';
 
 export default function TeacherDashboard() {
   const { user } = useAuth();
@@ -57,41 +56,41 @@ export default function TeacherDashboard() {
 
         {/* Quick Actions */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-          <SoundButton
+          <button
             onClick={() => router.push('/teacher/create-quiz')}
             className="bg-gradient-to-br from-purple-60 to-purple-70 hover:from-purple-70 hover:to-purple-80 p-6 rounded-xl border border-purple-60/30 transition-all"
           >
             <PlusCircle className="w-8 h-8 mb-2" />
             <div className="text-lg font-semibold">Create Quiz</div>
             <div className="text-sm text-gray-50">Create a new quiz</div>
-          </SoundButton>
+          </button>
 
-          <SoundButton
+          <button
             onClick={() => router.push('/teacher/quizzes')}
             className="bg-gray-15 border border-gray-20 hover:border-purple-60/30 p-6 rounded-xl transition-all"
           >
             <BookOpen className="w-8 h-8 mb-2" />
             <div className="text-lg font-semibold">My Quizzes</div>
             <div className="text-sm text-gray-60">{quizzes.length} quizzes</div>
-          </SoundButton>
+          </button>
 
-          <SoundButton
+          <button
             onClick={() => router.push('/teacher/events')}
             className="bg-gray-15 border border-gray-20 hover:border-purple-60/30 p-6 rounded-xl transition-all"
           >
             <Calendar className="w-8 h-8 mb-2" />
             <div className="text-lg font-semibold">Quiz Events</div>
             <div className="text-sm text-gray-60">{events.length} events</div>
-          </SoundButton>
+          </button>
 
-          <SoundButton
+          <button
             onClick={() => router.push('/teacher/review')}
             className="bg-gray-15 border border-gray-20 hover:border-purple-60/30 p-6 rounded-xl transition-all"
           >
             <CheckCircle2 className="w-8 h-8 mb-2" />
             <div className="text-lg font-semibold">Review</div>
             <div className="text-sm text-gray-60">Review submissions</div>
-          </SoundButton>
+          </button>
         </div>
 
         {/* Recent Quizzes */}
@@ -107,12 +106,12 @@ export default function TeacherDashboard() {
                       <span>{quiz.questions?.length || 0} questions</span>
                       <span>{new Date(quiz.createdAt?.toDate?.() || quiz.createdAt).toLocaleDateString()}</span>
                     </div>
-                    <SoundButton
+                    <button
                       onClick={() => router.push(`/teacher/quizzes/${quiz.id}`)}
                       className="w-full py-2 bg-purple-60 hover:bg-purple-70 text-white rounded-lg transition-all"
                     >
                       View Quiz
-                    </SoundButton>
+                    </button>
                   </div>
                 </DashboardCard>
               ))}

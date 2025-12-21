@@ -21,9 +21,8 @@ export async function verifyTokenAndGetRole(idToken) {
     
     // Get user role from Firestore using Admin SDK
     const userRef = adminDb.collection('users').doc(uid);
-    console.log('idToken', userRef)
     const userSnap = await userRef.get();
-
+    
     if (!userSnap.exists) {
       return { uid, role: 'student' }; // Default role
     }

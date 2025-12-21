@@ -1,23 +1,12 @@
 'use client';
 
 import { Trophy, Award, TrendingUp, RotateCcw, Home } from 'lucide-react';
-import { SoundButton } from './SoundButton';
-import { useSound } from '@/context/SoundContext';
 import { useEffect } from 'react';
 
 export default function GameResultsScreen({ gameResult, currentUserId, onPlayAgain, onExitToLobby}) {
-  const { play } = useSound();
   const myResult = gameResult?.allPlayerResults?.find(
     (result) => result.userId === currentUserId
   );
-
-  useEffect(()=>{
-    if(myResult.result === 'win'){
-      play('victory')
-    } else {
-      play('defeat')
-    }
-  },[myResult.result])
 
   return (
     <div className="min-h-screen bg-gray-10 flex items-center justify-center p-4">
@@ -172,20 +161,20 @@ export default function GameResultsScreen({ gameResult, currentUserId, onPlayAga
 
         {/* Action Buttons */}
         <div className="flex gap-4 justify-center">
-          <SoundButton
+          <button
             onClick={onPlayAgain}
             className="flex items-center gap-2 px-8 py-3 bg-purple-60 text-white-90 rounded-lg font-semibold hover:bg-purple-65 transition-colors"
           >
             <RotateCcw className="w-5 h-5" />
             Play Again
-          </SoundButton>
-          <SoundButton
+          </button>
+          <button
             onClick={onExitToLobby}
             className="flex items-center gap-2 px-8 py-3 bg-gray-20 text-white-90 rounded-lg font-semibold hover:bg-gray-30 transition-colors"
           >
             <Home className="w-5 h-5" />
             Exit to Lobby
-          </SoundButton>
+          </button>
         </div>
       </div>
     </div>

@@ -4,7 +4,6 @@ import NavBar from "./components/nav/NavBar";
 import { AuthProvider } from "@/context/AuthContext";
 import { LoaderProvider } from "./context/LoaderContext";
 import { ToastProvider } from "./context/ToastProvider";
-import { SoundProvider } from "./context/SoundContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,10 +27,8 @@ export default function RootLayout({ children }) {
         <ToastProvider/>
         <LoaderProvider>
           <AuthProvider>
-            <SoundProvider>
-              <NavBar/>
-              <main className="flex-1 h-full">{children}</main>
-            </SoundProvider>
+            <NavBar/>
+            <main className="flex-1 h-full">{children}</main>
           </AuthProvider>
         </LoaderProvider>
       </body>

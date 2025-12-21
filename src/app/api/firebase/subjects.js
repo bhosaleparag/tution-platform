@@ -9,14 +9,24 @@ export async function fetchSubjects() {
 }
 
 // Fetch subjects by institute (null for global)
+// lib/firebase/subjects.js (add this function)
+
 export async function fetchSubjectsByInstitute(instituteId) {
   const subjectsRef = collection(db, 'subjects');
-  const q = query(
-    subjectsRef, 
-    where('instituteId', '==', instituteId || null)
-  );
-  const snapshot = await getDocs(q);
-  return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  
+  // Get both global subjects and institute-specific
+  const globalQuery = query(subjectsRef, where('instituteId', '==', null), where('isActive', '==', true));
+  const instituteQuery = query(subjectsRef, where('instituteId', '==', instituteId), where('isActive', '==', true));
+  
+  const [globalSnapshot, instituteSnapshot] = await Promise.all([
+    getDocs(globalQuery),
+    getDocs(instituteQuery)
+  ]);
+  
+  const globalSubjects = globalSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  const instituteSubjects = instituteSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  
+  return [...globalSubjects, ...instituteSubjects];
 }
 
 // Add new subject

@@ -6,12 +6,9 @@ import Link from 'next/link';
 import { ChevronDown, Menu, X } from 'lucide-react';
 import Tooltip from '../ui/Tooltip';
 import { MenuRoutes, SecondaryRoutes, StudentRoutes, TeacherRoutes, AdminRoutes } from '@/lib/constants';
-import { SoundButton } from '../ui/SoundButton';
-import { useSound } from '@/context/SoundContext';
 import useAuth from '@/hooks/useAuth';
 
 export default function NavLinks() {
-  const { play } = useSound();
   const { isLoggedIn, user } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
@@ -61,7 +58,6 @@ export default function NavLinks() {
   // ADD THIS FUNCTION - Handle navigation with auth check
   const handleNavigation = (e, route, isMobile) => {
     e.preventDefault();
-    play('swipe');
     
     // Check if route is protected and user is not logged in
     if (isProtectedRoute(route.href) && !isLoggedIn) {
@@ -155,8 +151,7 @@ export default function NavLinks() {
         {/* More dropdown for remaining routes */}
         {(currentRoutes.length > 4 || SecondaryRoutes.length > 0) && (
           <div className="relative">
-            <SoundButton
-              soundEffect='toggle'
+            <button
               onClick={() => setShowMore(!showMore)}
               className={`
                 flex items-center gap-2 p-3 rounded-sm
@@ -172,7 +167,7 @@ export default function NavLinks() {
                 size={16} 
                 className={`text-gray-50 transition-transform ${showMore ? 'rotate-180' : ''}`} 
               />
-            </SoundButton>
+            </button>
 
             {showMore && (
               <>
@@ -200,7 +195,7 @@ export default function NavLinks() {
 
       {/* Mobile Menu Button */}
       <div className="lg:hidden">
-        <SoundButton
+        <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           className="p-2 rounded-xl border-2 border-transparent hover:border-gray-20 hover:bg-gray-15/50 transition-all"
           aria-label="Toggle mobile menu"
@@ -210,7 +205,7 @@ export default function NavLinks() {
           ) : (
             <Menu size={24} className="text-gray-50" />
           )}
-        </SoundButton>
+        </button>
       </div>
 
       {/* Mobile Menu Overlay */}
@@ -224,12 +219,12 @@ export default function NavLinks() {
             <div className="p-6">
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-xl font-bold text-white">Navigation</h2>
-                <SoundButton
+                <button
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="p-2 rounded-lg hover:bg-gray-15 transition-colors"
                 >
                   <X size={20} className="text-gray-50" />
-                </SoundButton>
+                </button>
               </div>
 
               <div className="space-y-2">

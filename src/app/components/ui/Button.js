@@ -1,24 +1,45 @@
 "use client";
+import React from 'react';
+import { Loader2 } from 'lucide-react';
 
-import { SoundButton } from "./SoundButton";
+export default function Button({ 
+  children, 
+  variant = 'primary', 
+  size = 'md',
+  loading = false,
+  disabled,
+  icon,
+  onClick,
+  className = '',
+  ...props 
+}) {
+  const variants = {
+    primary: 'bg-[#703bf7] hover:bg-[#8254f8] text-white',
+    secondary: 'bg-[#262626] hover:bg-[#333333] text-white',
+    danger: 'bg-red-600 hover:bg-red-700 text-white',
+    ghost: 'bg-transparent hover:bg-[#262626] text-gray-300',
+    gradient: 'bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white'
+  };
 
-export default function Button({ children, variant = "filled", className = "", ...props }) {
-  const baseStyles = "px-4 py-2 rounded-md font-semibold transition-colors duration-200 disabled:bg-gray-30 disabled:cursor-not-allowed";
-  const filled =
-    "bg-purple-60 text-white border-none hover:bg-purple-60/80";
-  const outlined =
-    "bg-transparent text-white border border-gray-15 hover:bg-gray-15/60";
-  const text = 
-    "bg-gray-800 text-white hover:bg-gray-800/60";
-
-  const variantStyles = variant === "outlined" ? outlined : variant === "text" ? text : filled;
+  const sizes = {
+    sm: 'px-4 py-2 text-sm',
+    md: 'px-6 py-3',
+    lg: 'px-8 py-4 text-lg'
+  };
 
   return (
-    <SoundButton
+    <button
+      onClick={onClick}
+      disabled={disabled || loading}
+      className={`flex items-center justify-center gap-2 rounded-xl transition-all font-medium disabled:opacity-50 disabled:cursor-not-allowed ${variants[variant]} ${sizes[size]} ${className}`}
       {...props}
-      className={`${baseStyles} ${variantStyles} ${className}`}
     >
+      {loading ? (
+        <Loader2 className="w-5 h-5 animate-spin" />
+      ) : icon ? (
+        <>{icon}</>
+      ) : null}
       {children}
-    </SoundButton>
+    </button>
   );
 }

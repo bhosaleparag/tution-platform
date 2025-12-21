@@ -4,7 +4,6 @@ import FeatureCard from './FeatureCard';
 import StepCard from './StepCard';
 import GameModeCard from './GameModeCard';
 import { dashboardFeature, dashboardGameModes, dashboardSteps } from '@/lib/constants';
-import { SoundButton } from '../ui/SoundButton';
 
 function NonSignUser() {
   const router = useRouter();
@@ -29,16 +28,16 @@ function NonSignUser() {
               Join thousands of developers sharpening their skills daily.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center px-4">
-              <SoundButton 
+              <button 
                 onClick={() => router.push('/login')}
                 className="group px-6 sm:px-8 py-3 sm:py-4 bg-purple-60 hover:bg-purple-65 rounded-xl text-base sm:text-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-2xl hover:shadow-purple-60/20"
               >
                 Start Your Journey
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-              </SoundButton>
-              <SoundButton className="px-6 sm:px-8 py-3 sm:py-4 border border-gray-15 hover:border-purple-60/30 rounded-xl text-base sm:text-lg font-semibold transition-all duration-300 bg-gradient-to-br from-gray-10 to-gray-08">
+              </button>
+              <button className="px-6 sm:px-8 py-3 sm:py-4 border border-gray-15 hover:border-purple-60/30 rounded-xl text-base sm:text-lg font-semibold transition-all duration-300 bg-gradient-to-br from-gray-10 to-gray-08">
                 Watch Demo
-              </SoundButton>
+              </button>
             </div>
           </div>
         </div>
@@ -112,13 +111,13 @@ function NonSignUser() {
             <p className="text-lg sm:text-xl text-gray-60 mb-6 sm:mb-8 max-w-2xl mx-auto px-4 leading-relaxed">
               Join thousands of developers improving their skills every day. Start your coding journey now.
             </p>
-            <SoundButton 
+            <button 
               onClick={() => router.push('/login')}
               className="group px-8 sm:px-10 py-3 sm:py-4 bg-purple-60 hover:bg-purple-65 rounded-xl text-base sm:text-lg font-semibold transition-all duration-300 inline-flex items-center gap-2 shadow-lg hover:shadow-2xl hover:shadow-purple-60/20"
             >
               Get Started Free
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-            </SoundButton>
+            </button>
           </div>
         </div>
       </section>

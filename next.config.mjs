@@ -13,10 +13,9 @@ const nextConfig = {
       },
     ],
   },
-  // Mark firebase-admin as external for server components
-  serverComponentsExternalPackages: ['firebase-admin'],
+  serverExternalPackages: ['firebase-admin'],
+  turbopack: {},
   webpack: (config, { isServer }) => {
-    // Exclude firebase-admin from client-side bundle
     if (!isServer) {
       config.resolve.fallback = {
         ...config.resolve.fallback,
@@ -36,10 +35,7 @@ const nextConfig = {
         'node:buffer': false,
         'node:util': false,
       };
-    }
 
-    // Ignore firebase-admin in client-side builds
-    if (!isServer) {
       config.externals = config.externals || [];
       config.externals.push({
         'firebase-admin': 'commonjs firebase-admin',

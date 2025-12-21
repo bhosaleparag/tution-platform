@@ -1,9 +1,7 @@
-
-import { useSound } from '@/context/SoundContext';
+'use client';
 import { useState } from 'react';
 
 export default function Tooltip({ children, text, description, position = 'bottom' }) {
-  const { play } = useSound();
   const [isVisible, setIsVisible] = useState(false);
 
   const positionClasses = {
@@ -16,10 +14,7 @@ export default function Tooltip({ children, text, description, position = 'botto
   return (
     <div className="relative inline-block">
       <div
-        onMouseEnter={() => {
-          play('hover');
-          setIsVisible(true);
-        }}
+        onMouseEnter={() => setIsVisible(true)}
         onMouseLeave={() => setIsVisible(false)}
       >
         {children}

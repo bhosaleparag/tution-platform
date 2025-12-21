@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { Star } from "lucide-react";
-import { SoundButton } from "@/components/ui/SoundButton";
 
 function StarRating({ name, value, max=5, onChange, error }) {
   const [hover, setHover] = useState(0);
@@ -14,7 +13,7 @@ function StarRating({ name, value, max=5, onChange, error }) {
       </label>
       <div className="flex gap-1">
         {Array.from({ length: max }, (_, i) => i + 1).map((star) => (
-          <SoundButton
+          <button
             key={star}
             type="button"
             onClick={() => onChange(star)}
@@ -30,7 +29,7 @@ function StarRating({ name, value, max=5, onChange, error }) {
                   : 'text-gray-40'
               }`}
             />
-          </SoundButton>
+          </button>
         ))}
         <span className="ml-2 text-white-90 self-center">
           {value > 0 && `${value}/5`}

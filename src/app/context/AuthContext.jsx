@@ -5,6 +5,8 @@ import { auth } from "@/lib/firebase";
 import { onAuthStateChanged, signOut as firebaseSignOut } from "firebase/auth";
 import { getUserProfile } from "@/api/firebase/users";
 import Loader from "@/loading";
+import { fetchTeacherClasses } from "@/api/firebase/classes";
+import { fetchSubjectsByInstitute } from "@/api/firebase/subjects";
 
 const AuthContext = createContext();
 
@@ -31,7 +33,11 @@ export function AuthProvider({ children }) {
 
           // Fetch user profile
           const userData = await getUserProfile(firebaseUser.uid);
-          setUser(userData);
+          const [classesData, subjectsData] = await Promise.all([
+            fetchTeacherClasses(userData.instituteId, firebaseUser.uid),
+            fetchSubjectsByInstitute(userData.instituteId)
+          ]);
+          setUser({...userData, classes: classesData, subjects: subjectsData});
         } else {
           await fetch("/api/auth/session", { method: "DELETE" });
           setUser(null);

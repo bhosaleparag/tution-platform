@@ -3,7 +3,7 @@ import { Globe, Building2, Edit2, Trash2 } from 'lucide-react';
 
 const SubjectCard = ({ subject, institutes, onEdit, onDelete }) => {
   const institute = institutes.find(i => i.id === subject.instituteId);
-  
+
   return (
     <div className="bg-gray-15 rounded-2xl border border-gray-15 p-6 hover:border-purple-60/50 transition-all group">
       {/* Header */}
@@ -42,7 +42,7 @@ const SubjectCard = ({ subject, institutes, onEdit, onDelete }) => {
 
       {/* Metadata */}
       <div className="flex items-center gap-3 mb-4 text-xs text-gray-60">
-        <span>Created {dayjs(subject.createdAt).format("DD/MM/YYYY")}</span>
+        <span>Created {dayjs(subject?.createdAt?.toDate()).format("DD/MM/YYYY")}</span>
       </div>
 
       {/* Actions */}

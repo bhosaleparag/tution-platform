@@ -156,7 +156,7 @@ export default function SubjectManagementPage() {
                 value={filterInstitute}
                 onChange={(value) => setFilterInstitute(value)}
                 options={[
-                  { value: 'all', label: 'All Subjects' },
+                  { value: 'all', label: 'All Schools' },
                   { value: 'global', label: 'Global Only' },
                   ...institutes.map(inst => ({
                     value: inst.id,

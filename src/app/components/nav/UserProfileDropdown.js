@@ -14,7 +14,6 @@ import {
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { calculateLevel } from '@/utils/calculateLevel';
-import { SoundButton } from '../ui/SoundButton';
 import Avatar from '../ui/Avatar';
 
 export default function UserProfileDropdown({ user, signOut, onOpenSettings, onOpenProfile, userStats }) {
@@ -92,7 +91,7 @@ export default function UserProfileDropdown({ user, signOut, onOpenSettings, onO
   return (
     <div className="relative" ref={dropdownRef}>
       {/* Profile Button */}
-      <SoundButton
+      <button
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-15 transition-colors group"
         aria-label="User menu"
@@ -119,7 +118,7 @@ export default function UserProfileDropdown({ user, signOut, onOpenSettings, onO
             className={`text-gray-50 transform transition-transform ${isOpen ? 'rotate-180' : ''}`} 
           />
         </div>
-      </SoundButton>
+      </button>
 
       {/* Dropdown Menu */}
       {isOpen && (
@@ -159,8 +158,7 @@ export default function UserProfileDropdown({ user, signOut, onOpenSettings, onO
             {/* Menu Items */}
             <div className="py-1">
               {menuItems.map((item, index) => (
-                <SoundButton
-                  soundEffect='swipe'
+                <button
                   key={index}
                   onClick={() => handleMenuItemClick(item.action)}
                   className={`w-full flex items-center px-4 py-2 text-left transition-colors ${
@@ -184,7 +182,7 @@ export default function UserProfileDropdown({ user, signOut, onOpenSettings, onO
                   {item.label === 'Notifications' && (
                     <div className="w-2 h-2 bg-purple-60 rounded-full ml-2"></div>
                   )}
-                </SoundButton>
+                </button>
               ))}
             </div>
 

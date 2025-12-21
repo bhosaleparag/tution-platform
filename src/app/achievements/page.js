@@ -33,7 +33,7 @@ function AchievementDashboard() {
   //       {/* Category Filter */}
   //       <div className="flex gap-2 overflow-x-auto pb-2">
   //         {categories.map(category => (
-  //           <SoundButton
+  //           <button
   //             key={category}
   //             onClick={() => setSelectedCategory(category)}
   //             className={`
@@ -45,7 +45,7 @@ function AchievementDashboard() {
   //             `}
   //           >
   //             {category.charAt(0).toUpperCase() + category.slice(1)}
-  //           </SoundButton>
+  //           </button>
   //         ))}
   //       </div>
 

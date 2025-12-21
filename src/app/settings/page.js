@@ -10,17 +10,14 @@ import Input from '@/components/ui/Input';
 import Select from '@/components/ui/Select';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { useSound } from '@/context/SoundContext';
-import { SoundButton } from '@/components/ui/SoundButton';
 import Checkbox from '@/components/ui/Checkbox';
-import AccountManagement from '@/components/realtime/AccountManagement';
 import Typography from '@/components/ui/Typography';
 import { toast } from 'sonner';
 import { checkUsernameExists } from '@/api/actions/firebaseAuth';
 
 // Memoized Tab Button Component
 const TabButton = ({ tab, isActive, onClick }) => (
-  <SoundButton
+  <button
     onClick={onClick}
     className={`w-full flex items-center px-4 py-3 text-left rounded-lg transition-colors ${
       isActive
@@ -30,7 +27,7 @@ const TabButton = ({ tab, isActive, onClick }) => (
   >
     <tab.icon size={20} className="mr-3" />
     {tab.label}
-  </SoundButton>
+  </button>
 );
 
 // Constants
@@ -89,7 +86,6 @@ const validateUsername = (value) => {
 export default function AccountSettings() {
   const router = useRouter();
   const { user, setUser } = useAuth();
-  const { preferences, updatePreferences, play } = useSound();
   const [activeTab, setActiveTab] = useState('profile');
   const [isPending, startTransition] = useTransition();
   const [usernameError, setUsernameError] = useState('');
@@ -324,32 +320,9 @@ export default function AccountSettings() {
 
   // Memoized handlers
   const handlePreferencesUpdate = useCallback(() => 
-    handleSettingsUpdate({ ...userPreferences, ...preferences }, 'preferences'), 
+    handleSettingsUpdate(userPreferences, 'preferences'), 
     [userPreferences, handleSettingsUpdate]
   );
-
-  // Handle checkbox changes with sound feedback
-  const handleSoundEffectsChange = (e) => {
-    const newValue = e.target.checked;
-    updatePreferences({ soundEffects: newValue });
-    
-    // Play toggle sound if enabling
-    if (newValue) {
-      setTimeout(() => play('toggle'), 100);
-    }
-  };
-
-  const handleBackgroundMusicChange = (e) => {
-    const newValue = e.target.checked;
-    updatePreferences({ backgroundMusic: newValue });
-    play('toggle');
-  };
-
-  const handleVibrationChange = (e) => {
-    const newValue = e.target.checked;
-    updatePreferences({ vibration: newValue });
-    play('toggle');
-  };
   
   const handleNotificationsUpdate = useCallback(() => 
     handleSettingsUpdate(notifications, 'notifications'), 
@@ -376,12 +349,12 @@ export default function AccountSettings() {
             alt="Avatar"
             className="rounded-full object-cover border-2 border-gray-20"
           />
-          <SoundButton
+          <button
             onClick={() => fileInputRef.current?.click()}
             className="absolute -bottom-2 -right-2 bg-purple-60 text-white p-2 rounded-full hover:bg-purple-65 transition-colors"
           >
             <Camera size={16} />
-          </SoundButton>
+          </button>
           <input
             ref={fileInputRef}
             type="file"
@@ -504,13 +477,13 @@ export default function AccountSettings() {
         </div>
       </div>
 
-      <SoundButton
+      <button
         onClick={handleProfileUpdate}
         disabled={isPending}
         className="bg-purple-60 text-white px-6 py-2 rounded-lg hover:bg-purple-65 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
       >
         {isPending ? 'Updating...' : 'Update Profile'}
-      </SoundButton>
+      </button>
     </div>
   ), [profile, isPending, handleAvatarUpload, handleProfileUpdate]);
 
@@ -562,13 +535,13 @@ export default function AccountSettings() {
         />
       </div>
 
-      <SoundButton
+      <button
         onClick={handlePasswordChange}
         disabled={isPending || !security.currentPassword || !security.newPassword}
         className="bg-purple-60 text-white px-6 py-2 rounded-lg hover:bg-purple-65 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
       >
         {isPending ? 'Updating...' : 'Update Password'}
-      </SoundButton>
+      </button>
     </div>
   ), [security, isPending, handlePasswordChange]);
 
@@ -619,45 +592,6 @@ export default function AccountSettings() {
         </div>
       </div>
 
-      <div className="bg-gray-10 rounded-lg p-6 mb-6">
-        <h4 className="text-white font-medium mb-3">Audio Settings</h4>
-        <div className="space-y-2">
-          <Checkbox
-            checked={preferences.soundEffects}
-            onChange={handleSoundEffectsChange}
-            label="Sound effects"
-          />
-          <Checkbox
-            checked={preferences.backgroundMusic}
-            onChange={handleBackgroundMusicChange}
-            label="Background music"
-          />
-          <Checkbox
-            checked={preferences.vibration}
-            onChange={handleVibrationChange}
-            label="Vibration (mobile)"
-          />
-        </div>
-
-        {/* Optional: Master Volume Slider */}
-        <div className="mt-4">
-          <label className="text-white-90 text-sm mb-2 block">
-            Master Volume
-          </label>
-          <input
-            type="range"
-            min="0"
-            max="100"
-            value={preferences.masterVolume * 100}
-            onChange={(e) => {
-              const volume = e.target.value / 100;
-              updatePreferences({ masterVolume: volume });
-            }}
-            className="w-full"
-          />
-        </div>
-      </div>
-
       {/* Gameplay Settings */}
       <div className="bg-gray-10 rounded-lg p-6">
         <h4 className="text-white font-medium mb-3">Gameplay</h4>
@@ -679,98 +613,16 @@ export default function AccountSettings() {
         </div>
       </div>
 
-      {/* Test Sounds SoundButton */}
-      <SoundButton
-        onClick={() => play('achievement')}
-        className="mr-2 px-4 py-2 bg-purple-60 text-white rounded-lg hover:bg-purple-70 transition"
-      >
-        Test Sound
-      </SoundButton>
-
-      <SoundButton
+      <button
         onClick={handlePreferencesUpdate}
         disabled={isPending}
         className="bg-purple-60 text-white px-6 py-2 rounded-lg hover:bg-purple-65 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
       >
         {isPending ? 'Updating...' : 'Save Preferences'}
-      </SoundButton>
+      </button>
     </div>
-  ), [preferences, userPreferences, isPending, handlePreferencesUpdate]);
+  ), [userPreferences, isPending, handlePreferencesUpdate]);
 
-  // Notifications Tab Content
-  // const NotificationsTab = useMemo(() => (
-  //   <div className="space-y-6">
-  //     <h3 className="text-xl font-semibold text-white mb-4">Notification Settings</h3>
-      
-  //     <div>
-  //       <h4 className="text-white font-medium mb-3">General</h4>
-  //       <div className="space-y-2">
-  //         <Checkbox
-  //           checked={notifications.emailNotifications}
-  //           onChange={(e) => setNotifications(prev => ({ ...prev, emailNotifications: e.target.checked }))}
-  //           label="Email notifications"
-  //         />
-  //         <Checkbox
-  //           checked={notifications.pushNotifications}
-  //           onChange={(e) => setNotifications(prev => ({ ...prev, pushNotifications: e.target.checked }))}
-  //           label="Push notifications"
-  //         />
-  //       </div>
-  //     </div>
-
-  //     <div>
-  //       <h4 className="text-white font-medium mb-3">Social</h4>
-  //       <div className="space-y-2">
-  //         <Checkbox
-  //           checked={notifications.friendRequests}
-  //           onChange={(e) => setNotifications(prev => ({ ...prev, friendRequests: e.target.checked }))}
-  //           label="Friend requests"
-  //         />
-  //         <Checkbox
-  //           checked={notifications.gameInvites}
-  //           onChange={(e) => setNotifications(prev => ({ ...prev, gameInvites: e.target.checked }))}
-  //           label="Game invites"
-  //         />
-  //       </div>
-  //     </div>
-
-  //     <div>
-  //       <h4 className="text-white font-medium mb-3">Game Updates</h4>
-  //       <div className="space-y-2">
-  //         <Checkbox
-  //           checked={notifications.achievements}
-  //           onChange={(e) => setNotifications(prev => ({ ...prev, achievements: e.target.checked }))}
-  //           label="Achievement unlocks"
-  //         />
-  //         <Checkbox
-  //           checked={notifications.weeklyDigest}
-  //           onChange={(e) => setNotifications(prev => ({ ...prev, weeklyDigest: e.target.checked }))}
-  //           label="Weekly performance digest"
-  //         />
-  //       </div>
-  //     </div>
-
-  //     <div>
-  //       <h4 className="text-white font-medium mb-3">Marketing</h4>
-  //       <Checkbox
-  //         checked={notifications.marketing}
-  //         onChange={(e) => setNotifications(prev => ({ ...prev, marketing: e.target.checked }))}
-  //         label="Promotional emails and updates"
-  //         description="Receive news about new features and special events"
-  //       />
-  //     </div>
-
-  //     <SoundButton
-  //       onClick={handleNotificationsUpdate}
-  //       disabled={isPending}
-  //       className="bg-purple-60 text-white px-6 py-2 rounded-lg hover:bg-purple-65 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-  //     >
-  //       {isPending ? 'Updating...' : 'Save Notification Settings'}
-  //     </SoundButton>
-  //   </div>
-  // ), [notifications, isPending, handleNotificationsUpdate]);
-
-  // Privacy Tab Content
   const PrivacyTab = useMemo(() => (
     <div className="space-y-6">
       <h3 className="text-xl font-semibold text-white mb-4">Privacy & Data</h3>
@@ -834,15 +686,13 @@ export default function AccountSettings() {
         </p>
       </div>
 
-      <AccountManagement userId={user?.uid}/>
-
-      <SoundButton
+      <button
         onClick={handlePrivacyUpdate}
         disabled={isPending}
         className="bg-purple-60 text-white px-6 py-2 rounded-lg hover:bg-purple-65 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
       >
         {isPending ? 'Updating...' : 'Save Privacy Settings'}
-      </SoundButton>
+      </button>
     </div>
   ), [privacy, isPending, handlePrivacyUpdate]);
 

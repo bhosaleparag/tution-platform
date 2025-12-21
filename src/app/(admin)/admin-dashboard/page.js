@@ -1,7 +1,6 @@
 "use client";
 import { useRouter } from 'next/navigation';
 import { School, GraduationCap, UserCheck, Users } from 'lucide-react';
-import { SoundButton } from '@/components/ui/SoundButton';
 
 export default function AdminDashboard() {
   const router = useRouter();
@@ -19,41 +18,41 @@ export default function AdminDashboard() {
 
         {/* Admin Actions */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <SoundButton
+          <button
             onClick={() => router.push('/schools')}
             className="bg-gray-15 border border-gray-20 hover:border-purple-60/30 p-6 rounded-xl transition-all"
           >
             <School className="w-8 h-8 mb-2" />
             <div className="text-lg font-semibold">Schools</div>
             <div className="text-sm text-gray-50">Manage schools</div>
-          </SoundButton>
+          </button>
 
-          <SoundButton
+          <button
             onClick={() => router.push('/classes')}
             className="bg-gray-15 border border-gray-20 hover:border-purple-60/30 p-6 rounded-xl transition-all"
           >
             <GraduationCap className="w-8 h-8 mb-2" />
             <div className="text-lg font-semibold">Classes</div>
             <div className="text-sm text-gray-60">Manage classes</div>
-          </SoundButton>
+          </button>
 
-          <SoundButton
+          <button
             onClick={() => router.push('/teachers')}
             className="bg-gray-15 border border-gray-20 hover:border-purple-60/30 p-6 rounded-xl transition-all"
           >
             <UserCheck className="w-8 h-8 mb-2" />
             <div className="text-lg font-semibold">Teachers</div>
             <div className="text-sm text-gray-60">Manage teachers</div>
-          </SoundButton>
+          </button>
 
-          <SoundButton
+          <button
             onClick={() => router.push('/all-students')}
             className="bg-gray-15 border border-gray-20 hover:border-purple-60/30 p-6 rounded-xl transition-all"
           >
             <Users className="w-8 h-8 mb-2" />
             <div className="text-lg font-semibold">Students</div>
             <div className="text-sm text-gray-60">Manage students</div>
-          </SoundButton>
+          </button>
         </div>
       </div>
     </div>

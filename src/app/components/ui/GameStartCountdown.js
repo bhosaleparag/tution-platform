@@ -1,11 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
 import { Swords } from "lucide-react";
-import { useSound } from "@/context/SoundContext";
 
 const GameStartCountdown = ({ onComplete, duration = 5 }) => {
   const [count, setCount] = useState(duration);
-  const { play } = useSound();
   const [isAnimating, setIsAnimating] = useState(true);
 
   useEffect(() => {
@@ -28,9 +26,6 @@ const GameStartCountdown = ({ onComplete, duration = 5 }) => {
   }, []);
 
   useEffect(()=>{
-    if(count===5 && count > 1){
-      play('tick')
-    }
     if(count === 1){
       onComplete()
     }

@@ -1,7 +1,6 @@
 "use client";
 import { useRouter } from 'next/navigation';
 import { ShieldX, Home } from 'lucide-react';
-import { SoundButton } from '@/components/ui/SoundButton';
 
 export default function UnauthorizedPage() {
   const router = useRouter();
@@ -16,13 +15,13 @@ export default function UnauthorizedPage() {
         <p className="text-gray-60 mb-8">
           You don't have permission to access this page. Please contact your administrator if you believe this is an error.
         </p>
-        <SoundButton
+        <button
           onClick={() => router.push('/')}
           className="inline-flex items-center gap-2 px-6 py-3 bg-purple-60 hover:bg-purple-70 text-white rounded-lg transition-all"
         >
           <Home className="w-5 h-5" />
           Go to Dashboard
-        </SoundButton>
+        </button>
       </div>
     </div>
   );

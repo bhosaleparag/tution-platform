@@ -40,7 +40,6 @@ A real-time multiplayer coding platform where developers can challenge each othe
 
 ### 🎨 User Experience
 - **Modern UI**: Beautiful, responsive design with dark theme
-- **Sound Effects**: Immersive audio feedback for actions
 - **Real-time Updates**: Live score updates and game state synchronization
 - **Mobile Responsive**: Optimized for all device sizes
 

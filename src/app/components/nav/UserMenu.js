@@ -27,7 +27,6 @@ export default function UserMenu() {
             Login
           </Button>
           <Button 
-            variant="filled" 
             onClick={() => router.push('/register')}
           >
             <span className="hidden sm:inline">Sign Up</span>

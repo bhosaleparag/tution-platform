@@ -17,15 +17,12 @@ import Celebration from '../ui/Celebration';
 import NotFound from '@/not-found';
 import { saveQuizResult } from '@/api/firebase/userProgress';
 import { useRouter } from 'next/navigation';
-import { SoundButton } from '../ui/SoundButton';
-import { useSound } from '@/context/SoundContext';
 
 const MAX_LIMIT_PER_QUIZ_QUE = 30;
 
 export default function SinglePlayerQuiz({ quizData }) {
   const router = useRouter();
   const { user } = useAuth();
-  const { play } = useSound();
   const [gameState, setGameState] = useState('start'); // 'start', 'playing', 'results'
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState('');
@@ -37,9 +34,6 @@ export default function SinglePlayerQuiz({ quizData }) {
 
   // Timer effect
   useEffect(() => {
-    if(timeLeft <= 5){
-      play('timeout')
-    }
     if (gameState === 'playing' && timeLeft > 0) {
       const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
       return () => clearTimeout(timer);
@@ -76,10 +70,7 @@ export default function SinglePlayerQuiz({ quizData }) {
       }
     ]);
     if (isCorrect) {
-      play('correct')
       setScore(prevScore => prevScore + (quizData.xp/quizData.questions.length));
-    } else {
-      play('wrong')
     }
 
     if (currentQuestion + 1 < quizData.questions.length) {
@@ -226,7 +217,7 @@ export default function SinglePlayerQuiz({ quizData }) {
             {/* Options */}
             <div className="grid gap-3 sm:gap-4 mb-6 sm:mb-8">
               {currentQ?.options.map((option, index) => (
-                <SoundButton
+                <button
                   key={index}
                   onClick={() => handleAnswerSelect(option)}
                   className={`p-3 sm:p-4 text-left rounded-xl border-2 transition-all duration-200 ${
@@ -247,13 +238,13 @@ export default function SinglePlayerQuiz({ quizData }) {
                     </div>
                     <span className="font-medium text-sm sm:text-base">{option}</span>
                   </div>
-                </SoundButton>
+                </button>
               ))}
             </div>
 
             {/* Next Button */}
             <div className="flex justify-end">
-              <SoundButton
+              <button
                 onClick={handleNextQuestion}
                 disabled={!selectedAnswer}
                 className={`px-6 py-3 rounded-xl font-semibold transition-all duration-200 ${
@@ -263,7 +254,7 @@ export default function SinglePlayerQuiz({ quizData }) {
                 }`}
               >
                 {currentQuestion + 1 === quizData.questions.length ? 'Finish Quiz' : 'Next Question'}
-              </SoundButton>
+              </button>
             </div>
           </div>
         </div>

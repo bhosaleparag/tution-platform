@@ -55,22 +55,22 @@ export const TeacherRoutes = [
     description: "Teacher overview"
   },
   { 
-    href: "/all-quizzes", 
-    name: "My Quizzes", 
+    href: "/classes", 
+    name: "My Classes", 
     icon: BookOpen,
-    description: "Manage your quizzes"
+    description: "Manage your classes"
   },
   { 
-    href: "/create-quiz", 
-    name: "Create Quiz", 
+    href: "/my-quiz", 
+    name: "My Quizzes", 
     icon: PlusCircle,
-    description: "Create new quiz"
+    description: "Create quiz"
   },
   { 
-    href: "/events", 
-    name: "Quiz Events", 
-    icon: CalendarCheck,
-    description: "Schedule and manage quiz events"
+    href: "/students", 
+    name: "Students", 
+    icon: Users,
+    description: "Manage students"
   },
   { 
     href: "/review", 
@@ -104,12 +104,6 @@ export const AdminRoutes = [
     name: "Teachers", 
     icon: UserCheck,
     description: "Manage teachers"
-  },
-  { 
-    href: "/students", 
-    name: "Students", 
-    icon: Users,
-    description: "Manage students"
   }
 ];
 

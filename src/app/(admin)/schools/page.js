@@ -5,7 +5,7 @@ import SchoolFormDialog from '@/components/schools/school-form-dialog';
 import DeleteConfirmDialog from '@/components/schools/delete-confirm-dialog';
 import SchoolCard from '@/components/schools/school-card';
 import Input from '@/components/ui/Input';
-import { fetchSchools, addSchool, updateSchool, deleteSchool } from '@/api/firebase/schools';
+import { fetchSchools, addSchool, updateSchool, deleteSchool, fetchSchool } from '@/api/firebase/schools';
 import useAuth from '@/hooks/useAuth';
  
 export default function SchoolManagementPage() {
@@ -21,13 +21,7 @@ export default function SchoolManagementPage() {
   // Handlers
   const handleAddSchool = async (formData) => {
     const newId = await addSchool(formData, user.uid);
-    const newSchool = {
-      id: newId,
-      name: formData.name,
-      ownerAdminId: user.uid,
-      createdAt: Date.now(),
-      isActive: formData.isActive
-    };
+    const newSchool = await fetchSchool(newId);
     setSchools([newSchool, ...schools]);
   };
 
@@ -124,17 +118,14 @@ export default function SchoolManagementPage() {
           </div>
 
           {/* Search Bar */}
-          <div className="relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-40" />
-            <Input
-              type="text"
-              theme='light'
-              placeholder="Search schools..."
-              startIcon={<Search className="w-5 h-5 text-gray-40" />}
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </div>
+          <Input
+            type="text"
+            theme='light'
+            placeholder="Search schools..."
+            startIcon={<Search className="w-5 h-5 text-gray-40" />}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
         </div>
 
         {/* School Cards Grid */}

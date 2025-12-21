@@ -9,8 +9,7 @@ import { Eye, EyeOff, Mail, Lock, Chrome } from "lucide-react";
 import Button from "../ui/Button";
 import useAuth from "@/hooks/useAuth";
 import { toast } from "sonner";
-import { handleGoogleLogin, handleLogin } from "@/api/actions/firebaseAuth";
-import { SoundButton } from "../ui/SoundButton";
+import { handleLogin } from "@/api/actions/firebaseAuth";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -75,9 +74,9 @@ export default function LoginForm() {
             placeholder="Enter your password"
             startIcon={<Lock size={18} />}
             endIcon={
-              <SoundButton type="button" onClick={() => setShowPassword(!showPassword)}>
+              <button type="button" onClick={() => setShowPassword(!showPassword)}>
                 {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-              </SoundButton>
+              </button>
             }
           />
         </div>
@@ -100,29 +99,6 @@ export default function LoginForm() {
           )}
         </Button>
 
-        {/* Divider */}
-        <div className="relative flex items-center gap-4">
-          <div className="flex-1 h-px bg-gray-20"></div>
-          <Typography variant="h4" className="text-gray-50">
-            or
-          </Typography>
-          <div className="flex-1 h-px bg-gray-20"></div>
-        </div>
-
-        {/* Google Login */}
-        <Button 
-          variant="text" 
-          type="button" 
-          className="flex justify-center gap-5"
-          onClick={() => {
-            handleGoogleLogin();
-            // router.push('/');
-          }}
-        >
-          <Chrome size={20} />
-          Continue with Google
-        </Button>
-
         {/* Error Message */}
         {state?.success === false && (
           <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-lg">
@@ -131,16 +107,6 @@ export default function LoginForm() {
             </Typography>
           </div>
         )}
-
-        {/* Sign Up Link */}
-        <div className="text-center mt-2">
-          <Typography variant="body" className="text-gray-50">
-            Don't have an account?{' '}
-            <button type="button" onClick={()=>router.push('/register')} className="text-purple-60 hover:text-purple-65 font-medium transition-colors">
-              Sign up
-            </button>
-          </Typography>
-        </div>
       </Form>
     </div>
   );

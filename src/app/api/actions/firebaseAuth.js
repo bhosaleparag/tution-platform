@@ -1,27 +1,7 @@
-import { createUserWithEmailAndPassword, GoogleAuthProvider, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "@/lib/firebase";
 import { doc, setDoc, collection, query, where, getDocs, getDoc, updateDoc, deleteDoc, writeBatch } from "firebase/firestore";
 import { getUserProfile } from "@/api/firebase/users";
-
-export const handleGoogleLogin = async () => {
-  try {
-    const provider = new GoogleAuthProvider();
-    const userCredential = await signInWithPopup(auth, provider);
-    const user = userCredential.user;
-
-    const userDetails = await getUserProfile(user.uid)
-
-    // If the document does NOT exist, create a new profile
-    if (!userDetails) {
-      await createUserProfile(user);
-    }
-    
-    // Return the successful result regardless of whether a new profile was created
-    return { success: true, userDetails };
-  } catch (error) {
-    return { success: false, error: error.message };
-  }
-};
 
 export const handleLogin = async (prevstate, queryData) => {
   const email = queryData.get('email')

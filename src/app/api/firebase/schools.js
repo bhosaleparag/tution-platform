@@ -1,12 +1,22 @@
 import { db } from '@/lib/firebase';
 import { query } from 'firebase/database';
-import { collection, addDoc, updateDoc, deleteDoc, doc, getDocs, serverTimestamp, where } from 'firebase/firestore';
+import { collection, addDoc, updateDoc, deleteDoc, doc, getDocs, serverTimestamp, where, getDoc } from 'firebase/firestore';
 
 // Fetch all schools
 export async function fetchSchools() {
   const schoolsRef = collection(db, 'institutes');
   const snapshot = await getDocs(schoolsRef);
   return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+}
+
+// Fetch school by Id
+export async function fetchSchool(id) {
+  const schoolRef = doc(db, 'institutes', id);
+  const snapshot = await getDoc(schoolRef);
+  if (!snapshot.exists()) {
+    return null; // or throw error
+  }
+  return { id: snapshot.id, ...snapshot.data() };
 }
 
 // Add new school
