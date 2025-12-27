@@ -3,17 +3,18 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
-import { Eye, EyeOff, Lock, User, UserPlus, Mail } from "lucide-react";
+import { Eye, EyeOff, Lock, User, Mail, GraduationCap, BookOpen } from "lucide-react";
 import Form from "next/form";
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import Typography from "@/components/ui/Typography";
-import { deleteInvite } from "@/api/firebase/teachers";
 import { auth, db } from "@/lib/firebase";
 import { toast } from "sonner";
 
-export default function RegisterTeacherForm({ invite, token }) {
+export default function RegisterStudentForm({ invite }) {
   const router = useRouter();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -31,9 +32,9 @@ export default function RegisterTeacherForm({ invite, token }) {
     let strength = 0;
     if (password.length >= 8) strength++;
     if (password.length >= 12) strength++;
-    if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++; // Mix of cases
-    if (/\d/.test(password)) strength++; // Digit
-    if (/[^a-zA-Z0-9]/.test(password)) strength++; // Special character
+    if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
+    if (/\d/.test(password)) strength++;
+    if (/[^a-zA-Z0-9]/.test(password)) strength++;
     
     setPasswordStrength(strength);
   }, [password]);
@@ -52,7 +53,7 @@ export default function RegisterTeacherForm({ invite, token }) {
   // -------------------------------
 
   const passwordsDontMatch = confirmPassword && password !== confirmPassword;
-  const isFormValid = password && !passwordsDontMatch && !loading;
+  const isFormValid = name && email && password && !passwordsDontMatch && !loading;
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -60,24 +61,23 @@ export default function RegisterTeacherForm({ invite, token }) {
     setLoading(true);
 
     try {
-      const userCred = await createUserWithEmailAndPassword( auth, invite.email, password );
+      const userCred = await createUserWithEmailAndPassword(auth, email, password);
       const uid = userCred.user.uid;
 
       await setDoc(doc(db, "users", uid), {
         uid: uid,
-        name: invite.name,
-        email: invite.email,
-        contact: invite.contact,
+        name: name,
+        email: email,
+        class: invite.class,
+        subjects: invite.subjects,
+        teacherId: invite.teacherId,
+        teacherName: invite.teacherName,
         instituteId: invite.instituteId,
-        role: "teacher",
+        role: "student",
         isActive: true,
-        subscriptionExpiry: null,
         createdAt: serverTimestamp(),
       });
-      console.log(`User registered with UID: ${uid}`);
-
-      await deleteInvite(token);
-
+      
       toast.success("Registration successful! Redirecting to login.");
       router.push("/login");
 
@@ -91,47 +91,49 @@ export default function RegisterTeacherForm({ invite, token }) {
   return (
     <div className="min-h-screen w-full bg-circuit-board bg-gray-08 flex items-center justify-center p-3">
 
-      {/* Register Teacher Form */}
+      {/* Register Student Form */}
       <Form
         onSubmit={handleSubmit}
         className="relative flex flex-col gap-3 p-3 md:p-6 bg-gray-10/80 backdrop-blur-xl rounded-2xl border border-gray-20 w-full max-w-md animate-fadeIn"
       >
         {/* Header */}
         <div className="flex flex-col justify-center items-center gap-2 mb-2">
-          <div className="w-16 h-16 bg-purple-60/20 rounded-2xl flex items-center justify-center mb-2">
-            <UserPlus className="w-8 h-8 text-purple-60" />
+          <div className="w-16 h-16 bg-blue-60/20 rounded-2xl flex items-center justify-center mb-2">
+            <GraduationCap className="w-8 h-8 text-blue-60" />
           </div>
           <Typography variant="h1" as="h1" className="text-white-99">
-            Teacher Registration
+            Student Registration
           </Typography>
           <Typography variant="body" className="text-gray-50 text-center">
-            You've been invited to join. Set your password to proceed.
+            Join {invite.className} with {invite.teacherName}
           </Typography>
         </div>
 
-        {/* Name Input (Disabled) */}
+        {/* Name Input */}
         <div className="flex flex-col gap-2">
           <label className="text-sm text-gray-50 font-medium">Full Name</label>
           <Input
             name="name"
             type="text"
-            placeholder="Name"
-            value={invite.name}
-            disabled
+            placeholder="Enter your full name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             startIcon={<User size={18} />}
+            required
           />
         </div>
 
-        {/* Email Input (Disabled) */}
+        {/* Email Input */}
         <div className="flex flex-col gap-2">
           <label className="text-sm text-gray-50 font-medium">Email</label>
           <Input
             name="email"
             type="email"
-            placeholder="Email"
-            value={invite.email}
-            disabled
+            placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             startIcon={<Mail size={18} />}
+            required
           />
         </div>
 

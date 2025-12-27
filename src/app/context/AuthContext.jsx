@@ -31,13 +31,17 @@ export function AuthProvider({ children }) {
             throw new Error("Failed to create session");
           }
 
-          // Fetch user profile
-          const userData = await getUserProfile(firebaseUser.uid);
-          const [classesData, subjectsData] = await Promise.all([
-            fetchTeacherClasses(userData.instituteId, firebaseUser.uid),
-            fetchSubjectsByInstitute(userData.instituteId)
-          ]);
-          setUser({...userData, classes: classesData, subjects: subjectsData});
+         const userData = await getUserProfile(firebaseUser.uid);
+          if (userData.role === 'teacher') {
+            const [classesData, subjectsData] = await Promise.all([
+              fetchTeacherClasses(userData.instituteId, firebaseUser.uid),
+              fetchSubjectsByInstitute(userData.instituteId)
+            ]);
+
+            setUser({ ...userData, classes: classesData, subjects: subjectsData });
+          } else {
+            setUser(userData);
+          }
         } else {
           await fetch("/api/auth/session", { method: "DELETE" });
           setUser(null);

@@ -1,13 +1,15 @@
 "use client";
 
-export default function Input({
+import { memo } from "react";
+
+const Input = ({
   label,
   theme = "dark",
   className = "",
   startIcon: StartIcon, // Rename props to startIcon and endIcon
   endIcon: EndIcon,
   ...props
-}) {
+}) =>{
   const iconClasses = "absolute top-1/2 -translate-y-1/2";
   const inputPaddingClasses = {
     start: StartIcon ? "pl-10" : "pl-3",
@@ -43,3 +45,4 @@ export default function Input({
     </div>
   );
 }
+export default memo(Input)

@@ -2,7 +2,7 @@
 
 
 import { ChevronDown } from "lucide-react";
-import { useState } from "react";
+import { memo, useState } from "react";
 
 const Select = ({
   multiple = false,
@@ -186,4 +186,4 @@ const Select = ({
   );
 };
 
-export default Select;
+export default memo(Select);

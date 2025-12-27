@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 const Dialog = ({ open, onOpenChange, children }) => {
   if (!open) return null;
   
@@ -40,4 +42,4 @@ export const DialogFooter = ({ children }) => (
   </div>
 );
 
-export default Dialog;
+export default memo(Dialog);

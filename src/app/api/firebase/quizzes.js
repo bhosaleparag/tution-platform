@@ -35,8 +35,8 @@ export async function createQuiz(quizData, userId, instituteId) {
       createdBy: userId,
       createdAt: Timestamp.now(),
       updatedAt: Timestamp.now(),
-      startAt: quizData.startAt || null,
-      endAt: quizData.endAt || null,
+      startDate: quizData.startDate || null,
+      endDate: quizData.endDate || null,
       allowRetake: quizData.allowRetake || false,
       timeLimitSeconds: quizData.timeLimitSeconds || null,
       totalMarks,
@@ -94,6 +94,8 @@ export async function updateQuiz(quizId, quizData, userId) {
       description: quizData.description || '',
       classId: quizData.classId,
       subjectId: quizData.subjectId,
+      startDate: quizData.startDate || null,
+      endDate: quizData.endDate || null,
       timeLimitSeconds: quizData.timeLimitSeconds,
       allowRetake: quizData.allowRetake,
       totalMarks,
@@ -205,10 +207,6 @@ export async function getQuizWithQuestions(quizId, userId) {
 
     if (!quizDoc.exists()) {
       throw new Error('Quiz not found');
-    }
-
-    if (quizDoc.data().createdBy !== userId) {
-      throw new Error('Not authorized');
     }
 
     const questionsSnapshot = await getDocs(

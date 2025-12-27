@@ -1,8 +1,8 @@
 "use client";
-import React from 'react';
 import { Loader2 } from 'lucide-react';
+import { memo } from 'react';
 
-export default function Button({ 
+const Button = ({ 
   children, 
   variant = 'primary', 
   size = 'md',
@@ -12,7 +12,7 @@ export default function Button({
   onClick,
   className = '',
   ...props 
-}) {
+})=> {
   const variants = {
     primary: 'bg-[#703bf7] hover:bg-[#8254f8] text-white',
     secondary: 'bg-[#262626] hover:bg-[#333333] text-white',
@@ -43,3 +43,5 @@ export default function Button({
     </button>
   );
 }
+
+export default memo(Button);

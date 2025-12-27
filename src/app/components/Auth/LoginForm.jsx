@@ -19,12 +19,12 @@ export default function LoginForm() {
 
   useEffect(()=>{
     if(state?.success){
-      setUser(state?.userDetails)
-      router.push('/')
+      setUser(state?.userDetails);
       toast.success('Welcome back!', {
         description: 'You\'re now logged in',
         duration: 4000,
       });
+      router.push('/');
     } else {
       if(state?.message){
         toast.error(state?.message, {

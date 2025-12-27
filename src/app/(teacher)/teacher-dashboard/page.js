@@ -57,7 +57,7 @@ export default function TeacherDashboard() {
         {/* Quick Actions */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
           <button
-            onClick={() => router.push('/teacher/create-quiz')}
+            onClick={() => router.push('/my-quiz/create')}
             className="bg-gradient-to-br from-purple-60 to-purple-70 hover:from-purple-70 hover:to-purple-80 p-6 rounded-xl border border-purple-60/30 transition-all"
           >
             <PlusCircle className="w-8 h-8 mb-2" />
@@ -66,7 +66,7 @@ export default function TeacherDashboard() {
           </button>
 
           <button
-            onClick={() => router.push('/teacher/quizzes')}
+            onClick={() => router.push('/my-quiz')}
             className="bg-gray-15 border border-gray-20 hover:border-purple-60/30 p-6 rounded-xl transition-all"
           >
             <BookOpen className="w-8 h-8 mb-2" />
@@ -103,11 +103,11 @@ export default function TeacherDashboard() {
                   <div className="space-y-3">
                     <p className="text-sm text-gray-60 line-clamp-2">{quiz.description}</p>
                     <div className="flex items-center justify-between text-xs text-gray-50">
-                      <span>{quiz.questions?.length || 0} questions</span>
+                      <span>{quiz.questionsCount || 0} questions</span>
                       <span>{new Date(quiz.createdAt?.toDate?.() || quiz.createdAt).toLocaleDateString()}</span>
                     </div>
                     <button
-                      onClick={() => router.push(`/teacher/quizzes/${quiz.id}`)}
+                      onClick={() => router.push(`/my-quiz/edit/${quiz.id}`)}
                       className="w-full py-2 bg-purple-60 hover:bg-purple-70 text-white rounded-lg transition-all"
                     >
                       View Quiz

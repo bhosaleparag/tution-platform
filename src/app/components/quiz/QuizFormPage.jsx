@@ -10,6 +10,8 @@ import useAuth from '@/hooks/useAuth';
 import { createQuiz, updateQuiz, getQuizWithQuestions } from '@/api/firebase/quizzes';
 import Checkbox from '../ui/Checkbox';
 import { toast } from 'sonner';
+import dayjs from 'dayjs';
+import DateInput from '../ui/DateInput';
 
 export default function QuizFormPage({ quizId, classes, subjects }) {
   const router = useRouter();
@@ -22,6 +24,8 @@ export default function QuizFormPage({ quizId, classes, subjects }) {
     description: '',
     classId: '',
     subjectId: '',
+    startDate: dayjs().format('YYYY-MM-DD'),
+    endDate: dayjs().add(7, 'days').format('YYYY-MM-DD'),
     timeLimitSeconds: 1800,
     allowRetake: false,
     questions: []
@@ -35,7 +39,9 @@ export default function QuizFormPage({ quizId, classes, subjects }) {
         ...prev,
         title: data.title,
         classId: data.classId,
-        questions: data.questions
+        questions: data.questions,
+        startDate: data.startDate || dayjs().format('YYYY-MM-DD'),
+        endDate: data.endDate || dayjs().add(7, 'days').format('YYYY-MM-DD')
       }));
       sessionStorage.removeItem('aiQuizData');
     }
@@ -59,6 +65,8 @@ export default function QuizFormPage({ quizId, classes, subjects }) {
         classId: quiz.classId,
         subjectId: quiz.subjectId,
         timeLimitSeconds: quiz.timeLimitSeconds,
+        startDate: quiz.startDate || '',
+        endDate: quiz.endDate || '',
         allowRetake: quiz.allowRetake,
         questions: questions || []
       });
@@ -237,6 +245,24 @@ export default function QuizFormPage({ quizId, classes, subjects }) {
                 ]}
                 placeholder="Select Subject"
               />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium mb-2">Start Date</label>
+                <DateInput 
+                  value={form.startDate}
+                  onChange={(date) => updateField('startDate', date)}
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-2">End Date</label>
+                <DateInput
+                  value={form.endDate}
+                  onChange={(date) => updateField('endDate', date)}
+                  minDate={form.startDate}
+                />
+              </div>
             </div>
 
             <div className="grid grid-cols-2 gap-4">

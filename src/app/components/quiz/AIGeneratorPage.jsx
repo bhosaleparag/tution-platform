@@ -5,6 +5,8 @@ import { Sparkles, Check } from 'lucide-react';
 import Select from '../ui/Select';
 import Button from '../ui/Button';
 import Input from '../ui/Input';
+import DateInput from '../ui/DateInput';
+import dayjs from 'dayjs';
 
 export default function AIGeneratorPage({ classes, subjects }) {
   const router = useRouter();
@@ -14,9 +16,10 @@ export default function AIGeneratorPage({ classes, subjects }) {
     subject: '',
     topic: '',
     numQuestions: 10,
-    difficulty: 'medium'
+    difficulty: 'medium',
+    startDate: dayjs().format('YYYY-MM-DD'),
+    endDate: dayjs().add(7, 'days').format('YYYY-MM-DD')
   });
-  
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatedQuiz, setGeneratedQuiz] = useState(null);
   const [error, setError] = useState(null);
@@ -134,6 +137,8 @@ export default function AIGeneratorPage({ classes, subjects }) {
     sessionStorage.setItem('aiQuizData', JSON.stringify({
       title: `${form.subject} - ${form.topic}`,
       classId: form.classLevel,
+      startDate: form.startDate,
+      endDate: form.endDate,
       questions,
       generatedBy: 'ai'
     }));
@@ -147,7 +152,9 @@ export default function AIGeneratorPage({ classes, subjects }) {
       subject: '',
       topic: '',
       numQuestions: 10,
-      difficulty: 'medium'
+      difficulty: 'medium',
+      startDate: '',
+      endDate: ''
     });
     setGeneratedQuiz(null);
     setError(null);
@@ -238,6 +245,23 @@ export default function AIGeneratorPage({ classes, subjects }) {
                     { value: 'hard', label: 'Hard' }
                   ]}
                   placeholder="Select Difficulty"
+                />
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium mb-2">Start Date</label>
+                <DateInput 
+                  value={form.startDate}
+                  onChange={(date) => updateForm('startDate', date)}
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-2">End Date</label>
+                <DateInput 
+                  value={form.endDate}
+                  onChange={(date) => updateForm('endDate', date)}
                 />
               </div>
             </div>
