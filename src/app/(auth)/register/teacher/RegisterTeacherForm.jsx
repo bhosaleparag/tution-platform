@@ -62,11 +62,13 @@ export default function RegisterTeacherForm({ invite, token }) {
     try {
       const userCred = await createUserWithEmailAndPassword( auth, invite.email, password );
       const uid = userCred.user.uid;
-
+      const tempUserName = invite.email.split('@')[0];
+      
       await setDoc(doc(db, "users", uid), {
         uid: uid,
         name: invite.name,
         email: invite.email,
+        userName: tempUserName,
         contact: invite.contact,
         instituteId: invite.instituteId,
         role: "teacher",
@@ -74,7 +76,6 @@ export default function RegisterTeacherForm({ invite, token }) {
         subscriptionExpiry: null,
         createdAt: serverTimestamp(),
       });
-      console.log(`User registered with UID: ${uid}`);
 
       await deleteInvite(token);
 

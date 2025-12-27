@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect, useCallback, useMemo, useTransition } from 'react';
 import { updateProfile, updatePassword, reauthenticateWithCredential, EmailAuthProvider } from 'firebase/auth';
 import { doc, updateDoc, getDoc } from 'firebase/firestore';
-import { User, Camera, Lock, Bell, Palette, Shield } from 'lucide-react';
+import { User, Camera, Lock, Palette } from 'lucide-react';
 import { auth, db } from '@/lib/firebase';
 import useAuth from '@/hooks/useAuth';
 import Input from '@/components/ui/Input';
@@ -34,9 +34,7 @@ const TabButton = ({ tab, isActive, onClick }) => (
 const TABS = [
   { id: 'profile', label: 'Profile', icon: User },
   { id: 'security', label: 'Security', icon: Lock },
-  { id: 'preferences', label: 'Preferences', icon: Palette },
-  // { id: 'notifications', label: 'Notifications', icon: Bell },
-  { id: 'privacy', label: 'Privacy', icon: Shield },
+  { id: 'preferences', label: 'Preferences', icon: Palette }
 ];
 
 const GENDER_OPTIONS = [
@@ -67,12 +65,6 @@ const TIMEZONE_OPTIONS = [
   { value: 'Asia/Tokyo', label: 'Japan Standard Time' }
 ];
 
-const PRIVACY_OPTIONS = [
-  { value: 'public', label: 'Public - Anyone can see your profile' },
-  { value: 'friends', label: 'Friends only - Only friends can see your profile' },
-  { value: 'private', label: 'Private - Only you can see your profile' }
-];
-
 const validateUsername = (value) => {
   if (!value) return '';
   if (value.length < 3) return 'Too short (min 3 characters)';
@@ -98,7 +90,6 @@ export default function AccountSettings() {
     bio: '',
     avatar: '',
     location: '',
-    website: '',
     birthDate: '',
     gender: '',
     isProfilePublic: true,
@@ -121,25 +112,6 @@ export default function AccountSettings() {
     showOnlineStatus: true
   });
   
-  const [notifications, setNotifications] = useState({
-    emailNotifications: true,
-    pushNotifications: true,
-    friendRequests: true,
-    gameInvites: true,
-    achievements: true,
-    weeklyDigest: true,
-    marketing: false
-  });
-  
-  const [privacy, setPrivacy] = useState({
-    profileVisibility: 'public',
-    allowFriendRequests: true,
-    allowGameInvites: true,
-    showLastSeen: true,
-    dataProcessing: true,
-    analytics: true
-  });
-
   // Memoize docRef
   const docRef = useMemo(() => 
     user?.uid ? doc(db, 'users', user.uid) : null, 
@@ -169,7 +141,6 @@ export default function AccountSettings() {
           bio: userData.bio || '',
           avatar: userData.avatar || user.photoURL || '',
           location: userData.location || '',
-          website: userData.website || '',
           birthDate: userData.birthDate || '',
           gender: userData.gender || '',
           isProfilePublic: userData.isProfilePublic ?? true,
@@ -179,14 +150,6 @@ export default function AccountSettings() {
         
         if (userData.preferences) {
           setUserPreferences(prev => ({ ...prev, ...userData.preferences }));
-        }
-        
-        // if (userData.notifications) {
-        //   setNotifications(prev => ({ ...prev, ...userData.notifications }));
-        // }
-        
-        if (userData.privacy) {
-          setPrivacy(prev => ({ ...prev, ...userData.privacy }));
         }
       }
     } catch (error) {
@@ -324,16 +287,6 @@ export default function AccountSettings() {
     [userPreferences, handleSettingsUpdate]
   );
   
-  const handleNotificationsUpdate = useCallback(() => 
-    handleSettingsUpdate(notifications, 'notifications'), 
-    [notifications, handleSettingsUpdate]
-  );
-  
-  const handlePrivacyUpdate = useCallback(() => 
-    handleSettingsUpdate(privacy, 'privacy'), 
-    [privacy, handleSettingsUpdate]
-  );
-
   // Profile Tab Content
   const ProfileTab = useMemo(() => (
     <div className="space-y-6">
@@ -423,15 +376,6 @@ export default function AccountSettings() {
             value={profile.location}
             onChange={(e) => setProfile(prev => ({ ...prev, location: e.target.value }))}
             placeholder="Your city, country"
-          />
-        </div>
-        <div>
-          <label className="block text-gray-50 text-sm font-medium mb-2">Website</label>
-          <Input
-            type="url"
-            value={profile.website}
-            onChange={(e) => setProfile(prev => ({ ...prev, website: e.target.value }))}
-            placeholder="https://yourwebsite.com"
           />
         </div>
       </div>
@@ -623,78 +567,6 @@ export default function AccountSettings() {
     </div>
   ), [userPreferences, isPending, handlePreferencesUpdate]);
 
-  const PrivacyTab = useMemo(() => (
-    <div className="space-y-6">
-      <h3 className="text-xl font-semibold text-white mb-4">Privacy & Data</h3>
-      
-      <div>
-        <h4 className="text-white font-medium mb-3">Profile Visibility</h4>
-        <div className="space-y-2">
-          {PRIVACY_OPTIONS.map((option) => (
-            <label key={option.value} className="flex items-center">
-              <input
-                type="radio"
-                name="profileVisibility"
-                value={option.value}
-                checked={privacy.profileVisibility === option.value}
-                onChange={(e) => setPrivacy(prev => ({ ...prev, profileVisibility: e.target.value }))}
-                className="mr-3 text-purple-60"
-              />
-              <span className="text-gray-50">{option.label}</span>
-            </label>
-          ))}
-        </div>
-      </div>
-
-      <div>
-        <h4 className="text-white font-medium mb-3">Social Interactions</h4>
-        <div className="space-y-2">
-          <Checkbox
-            checked={privacy.allowFriendRequests}
-            onChange={(e) => setPrivacy(prev => ({ ...prev, allowFriendRequests: e.target.checked }))}
-            label="Allow friend requests from other users"
-          />
-          <Checkbox
-            checked={privacy.allowGameInvites}
-            onChange={(e) => setPrivacy(prev => ({ ...prev, allowGameInvites: e.target.checked }))}
-            label="Allow game invites from friends"
-          />
-          <Checkbox
-            checked={privacy.showLastSeen}
-            onChange={(e) => setPrivacy(prev => ({ ...prev, showLastSeen: e.target.checked }))}
-            label='Show "last seen" status to friends'
-          />
-        </div>
-      </div>
-
-      <div>
-        <h4 className="text-white font-medium mb-3">Data Collection</h4>
-        <div className="space-y-2">
-          <Checkbox
-            checked={privacy.dataProcessing}
-            onChange={(e) => setPrivacy(prev => ({ ...prev, dataProcessing: e.target.checked }))}
-            label="Allow data processing for personalized experience"
-          />
-          <Checkbox
-            checked={privacy.analytics}
-            onChange={(e) => setPrivacy(prev => ({ ...prev, analytics: e.target.checked }))}
-            label="Share anonymous usage analytics"
-          />
-        </div>
-        <p className="text-gray-60 text-sm mt-2">
-          This helps us improve the app and provide better recommendations
-        </p>
-      </div>
-
-      <button
-        onClick={handlePrivacyUpdate}
-        disabled={isPending}
-        className="bg-purple-60 text-white px-6 py-2 rounded-lg hover:bg-purple-65 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-      >
-        {isPending ? 'Updating...' : 'Save Privacy Settings'}
-      </button>
-    </div>
-  ), [privacy, isPending, handlePrivacyUpdate]);
 
   // Render tab content based on active tab
   const renderTabContent = () => {
@@ -702,9 +574,6 @@ export default function AccountSettings() {
       case 'profile': return ProfileTab;
       case 'security': return SecurityTab;
       case 'preferences': return PreferencesTab;
-      // case 'notifications
-      // ': return NotificationsTab;
-      case 'privacy': return PrivacyTab;
       default: return null;
     }
   };

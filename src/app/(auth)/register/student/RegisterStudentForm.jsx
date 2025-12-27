@@ -63,12 +63,14 @@ export default function RegisterStudentForm({ invite }) {
     try {
       const userCred = await createUserWithEmailAndPassword(auth, email, password);
       const uid = userCred.user.uid;
-
+      const tempUserName = email.split('@')[0];
       await setDoc(doc(db, "users", uid), {
         uid: uid,
         name: name,
         email: email,
-        class: invite.class,
+        userName: tempUserName,
+        classId: invite.classId,
+        className: invite.className,
         subjects: invite.subjects,
         teacherId: invite.teacherId,
         teacherName: invite.teacherName,

@@ -24,7 +24,9 @@ export default function LoginForm() {
         description: 'You\'re now logged in',
         duration: 4000,
       });
-      router.push('/');
+      setTimeout(() => {
+        router.push('/');
+      }, 0);
     } else {
       if(state?.message){
         toast.error(state?.message, {
@@ -32,7 +34,7 @@ export default function LoginForm() {
         });
       }
     }
-  },[state?.userDetails])
+  },[state?.success, state?.userDetails])
 
   return (
     <div className="min-h-full bg-circuit-board w-full bg-gray-08 flex items-center justify-center p-3">

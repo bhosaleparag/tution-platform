@@ -37,10 +37,14 @@ export function AuthProvider({ children }) {
               fetchTeacherClasses(userData.instituteId, firebaseUser.uid),
               fetchSubjectsByInstitute(userData.instituteId)
             ]);
-
             setUser({ ...userData, classes: classesData, subjects: subjectsData });
-          } else {
-            setUser(userData);
+          } else if (userData.role === 'student') {
+            const subjectsData = await fetchSubjectsByInstitute(userData.instituteId);
+            const subjectNames = subjectsData?.reduce((acc, subject) => {
+              acc[subject.id] = subject.name;
+              return acc;
+            }, {});
+            setUser({ ...userData, subjects: subjectsData, subjectNames });
           }
         } else {
           await fetch("/api/auth/session", { method: "DELETE" });

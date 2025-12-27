@@ -22,28 +22,22 @@ import {
 // Role-based navigation routes
 export const StudentRoutes = [
   { 
-    href: "/", 
+    href: "/student-dashboard", 
     name: "Dashboard", 
     icon: Home,
     description: "View assigned quizzes"
   },
   { 
-    href: "/quizzes", 
-    name: "My Quizzes", 
+    href: "/notes", 
+    name: "My Notes", 
     icon: BookOpen,
-    description: "View and take quizzes"
+    description: "View Notes"
   },
   { 
     href: "/results", 
     name: "Results", 
     icon: Award,
     description: "View quiz results and scores"
-  },
-  { 
-    href: "/leaderboard", 
-    name: "Leaderboard", 
-    icon: TrendingUp,
-    description: "See rankings"
   }
 ];
 

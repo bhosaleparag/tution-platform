@@ -13,7 +13,7 @@ export const loadStudents = async (classes, instituteId) => {
       studentsRef,
       where('role', '==', 'student'),
       where('instituteId', '==', instituteId),
-      where('class', 'in', classes),
+      where('classId', 'in', classes),
       orderBy('createdAt', 'desc')
     );
     
@@ -63,13 +63,14 @@ export const loadInvites = async (teacherId, instituteId) => {
  */
 export const createInvite = async (inviteData) => {
   try {
-    const { className, subjects, teacherId, teacherName, instituteId } = inviteData;
+    const { classId, className, subjects, teacherId, teacherName, instituteId } = inviteData;
     
     // Generate invite token
     const inviteToken = crypto.randomBytes(32).toString('hex');
     
     const newInvite = {
-      class: className,
+      className: className,
+      classId: classId,
       subjects: subjects,
       token: inviteToken,
       teacherId: teacherId,

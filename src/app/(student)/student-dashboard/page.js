@@ -57,8 +57,7 @@ export default function StudentDashboard() {
             Welcome back, {user?.username || 'Student'}! 👋
           </h1>
           <p className="text-gray-60">
-            {user?.class && `Class: ${user.class}`}
-            {user?.division && ` • Division: ${user.division}`}
+            {user?.className && `Class: ${user.className}`}
           </p>
         </div>
 
@@ -143,7 +142,7 @@ export default function StudentDashboard() {
                       Ended: {formatDate(event.endDate)}
                     </p>
                     <Button
-                      onClick={() => router.push(`/student/results?eventId=${event.id}`)}
+                      onClick={() => router.push(`/results`)}
                       className="w-full py-2 bg-gray-20 hover:bg-gray-30 text-white rounded-lg transition-all"
                     >
                       View Results

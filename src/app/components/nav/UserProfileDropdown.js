@@ -4,23 +4,17 @@ import {
   User, 
   Settings, 
   LogOut, 
-  Trophy, 
-  Users, 
-  Bell,
   ChevronDown,
   Shield,
   HelpCircle
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
-import { calculateLevel } from '@/utils/calculateLevel';
 import Avatar from '../ui/Avatar';
 
-export default function UserProfileDropdown({ user, signOut, onOpenSettings, onOpenProfile, userStats }) {
+export default function UserProfileDropdown({ user, signOut, onOpenSettings, onOpenProfile }) {
   const router = useRouter();
   const dropdownRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
-  const userStat = calculateLevel(user?.stats?.xp)
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -52,24 +46,6 @@ export default function UserProfileDropdown({ user, signOut, onOpenSettings, onO
       action: () => onOpenSettings && onOpenSettings(),
       description: 'Manage your account'
     },
-    {
-      icon: Trophy,
-      label: 'Achievements',
-      action: () => router.push('/achievements'),
-      description: 'View your accomplishments'
-    },
-    {
-      icon: Users,
-      label: 'Friends',
-      action: () => router.push('/friends'),
-      description: 'Manage your friend list'
-    },
-    // {
-    //   icon: Bell,
-    //   label: 'Notifications',
-    //   action: () => router.push('/notifications'),
-    //   description: 'View recent activity'
-    // },
     {
       icon: HelpCircle,
       label: 'Help & Support',
@@ -107,10 +83,7 @@ export default function UserProfileDropdown({ user, signOut, onOpenSettings, onO
         <div className="hidden md:flex items-center space-x-1">
           <div className="text-left">
             <div className="text-white text-sm font-medium">
-              {user?.displayName || user?.username || 'User'}
-            </div>
-            <div className="text-gray-60 text-xs">
-              Level {userStat.level}
+              {user?.displayName || user?.username || 'Unknown'}
             </div>
           </div>
           <ChevronDown 
@@ -139,17 +112,10 @@ export default function UserProfileDropdown({ user, signOut, onOpenSettings, onO
                 />
                 <div className="flex-1">
                   <div className="font-semibold">
-                    {user?.displayName || user?.username || 'User'}
+                    {user?.displayName || user?.username || 'Unknown'}
                   </div>
                   <div className="text-purple-90 text-sm">
                     {user?.email}
-                  </div>
-                  <div className="flex items-center space-x-3 mt-1 text-xs text-purple-95">
-                    <span>Level {userStat.level}</span>
-                    <span>•</span>
-                    <span>{userStats?.battlesWon || 0} wins</span>
-                    <span>•</span>
-                    <span>{userStats?.streak || 0} streak</span>
                   </div>
                 </div>
               </div>
@@ -189,7 +155,7 @@ export default function UserProfileDropdown({ user, signOut, onOpenSettings, onO
             {/* Footer */}
             <div className="px-3 py-2 bg-gray-08 border-t border-gray-20">
               <div className="flex items-center justify-between text-xs text-gray-60">
-                <span>Dev Battle v1.0</span>
+                <span>My Tution v1.0</span>
                 <div className="flex items-center space-x-2">
                   <Shield size={12} />
                   <span>Secure</span>

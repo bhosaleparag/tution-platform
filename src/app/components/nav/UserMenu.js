@@ -15,7 +15,6 @@ export default function UserMenu() {
           user={user} 
           signOut={signOut} 
           onOpenSettings={() => router.push('/settings')} 
-          userStats={user?.stats} 
         />
       ) : (
         <>

@@ -89,7 +89,7 @@ const StudentManagement = () => {
       filtered = filtered.filter(s => s.name.toLowerCase().includes(searchTerm.toLowerCase()));
     }
     if (selectedClass) {
-      filtered = filtered.filter(s => s.class === selectedClass);
+      filtered = filtered.filter(s => s.classId === selectedClass);
     }
     if (selectedSubject) {
       filtered = filtered.filter(s => s.subjects.includes(selectedSubject));
@@ -104,7 +104,8 @@ const StudentManagement = () => {
     }
 
     const result = await createNewInvite({
-      className: inviteForm.class,
+      classId: inviteForm.class,
+      className: classMap[inviteForm.class] || 'Unknown Class',
       subjects: inviteForm.subjects,
       teacherId: user.uid,
       teacherName: user.name,
@@ -130,7 +131,8 @@ const StudentManagement = () => {
     const result = await updateStudentData(editingStudent.id, {
       name: editingStudent.name,
       email: editingStudent.email,
-      class: editingStudent.class,
+      classId: editingStudent.class,
+      className: classMap[editingStudent.class] || 'Unknown Class',
       subjects: editingStudent.subjects
     });
 
@@ -172,8 +174,8 @@ const StudentManagement = () => {
     window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank');
   };
   
-  const classOptions = user?.classes.map(c => ({ value: c.id, label: c.title }));
-  const subjectOptions = user?.subjects.map(s => ({ value: s.id, label: s.name }));
+  const classOptions = user?.classes.map(c => ({ value: c.id, label: c.title })) || [];
+  const subjectOptions = user?.subjects.map(s => ({ value: s.id, label: s.name })) || [];
   
   return (
     <div className="min-h-screen text-white p-6">
@@ -266,7 +268,7 @@ const StudentManagement = () => {
                         <td className="px-6 py-4 whitespace-nowrap">{student.name}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-gray-400">{student.email}</td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <span className="px-2 py-1 bg-blue-600 rounded text-sm">{classMap[student.class]}</span>
+                          <span className="px-2 py-1 bg-blue-600 rounded text-sm">{student.className}</span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <span className="px-2 py-1 bg-purple-600 rounded text-sm">{student.subjects?.map(s=>subjectMap[s]).join(", ")}</span>
@@ -305,7 +307,7 @@ const StudentManagement = () => {
 
         {/* Create Invite Dialog */}
         <Dialog open={isCreateInviteOpen} onOpenChange={setIsCreateInviteOpen}>
-          <DialogContent className=" text-white">
+          <DialogContent className="text-white">
             <DialogHeader>
               <DialogTitle>Create Invite Link</DialogTitle>
               <DialogDescription className="text-gray-400">
@@ -431,8 +433,8 @@ const StudentManagement = () => {
                   <Select
                     label="Class"
                     options={classOptions}
-                    value={editingStudent.class}
-                    onChange={(value) => setEditingStudent({ ...editingStudent, class: value })}
+                    value={editingStudent.classId}
+                    onChange={(value) => setEditingStudent({ ...editingStudent, classId: value })}
                   />
                   <Select
                     label="Subject"
@@ -475,7 +477,7 @@ const StudentManagement = () => {
                 <div className=" rounded-lg p-4">
                   <p className="font-semibold mb-1">{deletingStudent.name}</p>
                   <p className="text-sm text-gray-400">{deletingStudent.email}</p>
-                  <p className="text-sm text-gray-400">{deletingStudent.class} - {deletingStudent.subject}</p>
+                  <p className="text-sm text-gray-400">{deletingStudent.className}</p>
                 </div>
               </div>
             )}

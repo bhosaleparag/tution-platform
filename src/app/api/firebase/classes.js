@@ -71,6 +71,13 @@ export async function updateClass(classId, data) {
   });
 }
 
+// get Individual class
+export async function getIndividualClass(classId) {
+  const classRef = doc(db, 'classes', classId);
+  const classDoc = await getDoc(classRef);
+  return classDoc.exists() ? { id: classDoc.id, ...classDoc.data() } : null;
+}
+
 // Delete class
 export async function deleteClass(classId) {
   const classRef = doc(db, 'classes', classId);
