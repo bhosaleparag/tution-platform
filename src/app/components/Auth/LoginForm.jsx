@@ -17,24 +17,25 @@ export default function LoginForm() {
   const [state, handleEmailLogin, isPending] = useActionState(handleLogin, {})
   const [showPassword, setShowPassword] = useState(false);
 
-  useEffect(()=>{
-    if(state?.success){
-      setUser(state?.userDetails);
+  useEffect(() => {
+  if (!state) return;
+
+    if (state.success) {
+      setUser(state.userDetails);
+
       toast.success('Welcome back!', {
-        description: 'You\'re now logged in',
-        duration: 4000,
+        description: "You're now logged in",
+        duration: 2000,
       });
-      setTimeout(() => {
-        router.push('/');
-      }, 0);
-    } else {
-      if(state?.message){
-        toast.error(state?.message, {
-          duration: 4000,
-        });
-      }
+
+      router.replace('/');
+    } else if (state.message) {
+      toast.error(state.message, {
+        duration: 2000,
+      });
     }
-  },[state?.success, state?.userDetails])
+  }, [state, router]);
+
 
   return (
     <div className="min-h-full bg-circuit-board w-full bg-gray-08 flex items-center justify-center p-3">

@@ -73,9 +73,8 @@ export default function NavLinks() {
     const active = isActive(route.href);
     
     return (
-      <Link
+      <div
         key={route.href}
-        href={route.href}
         className={`
           group relative flex items-center gap-3 p-3
           transition-all duration-300 ease-in-out
@@ -131,7 +130,7 @@ export default function NavLinks() {
         {active && !isMobile && (
           <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 bg-purple-60 rounded-full"></div>
         )}
-      </Link>
+      </div>
     );
   };
 

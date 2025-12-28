@@ -1,8 +1,8 @@
-# 🚀 Dev Battle - Competitive Coding Platform
+# 🚀 Tution Platform - Interactive Learning & Assessment
 
-A real-time multiplayer coding platform where developers can challenge each other, solve problems, and climb the global leaderboard. Built with Next.js 15, Firebase, and Socket.io for seamless real-time experiences.
+A modern tution platform for schools and educators to deliver quizzes, assignments, and track student progress. Built with Next.js, Firebase, and real-time features for responsive learning experiences.
 
-![Dev Battle](https://img.shields.io/badge/Next.js-15.4.5-black?style=for-the-badge&logo=next.js)
+![Tution Platform](https://img.shields.io/badge/Next.js-15.4.5-black?style=for-the-badge&logo=next.js)
 ![React](https://img.shields.io/badge/React-19.1.0-blue?style=for-the-badge&logo=react)
 ![Firebase](https://img.shields.io/badge/Firebase-12.1.0-orange?style=for-the-badge&logo=firebase)
 ![Socket.io](https://img.shields.io/badge/Socket.io-4.8.1-black?style=for-the-badge&logo=socket.io)
@@ -78,7 +78,7 @@ A real-time multiplayer coding platform where developers can challenge each othe
 1. **Clone the repository**
    ```bash
    git clone <repository-url>
-   cd dev-battle
+   cd tution-platform
    ```
 
 2. **Install dependencies**
@@ -251,3 +251,8 @@ If you have any questions or need help, please:
 **Happy Coding! 🎉**
 
 *Master coding through real battles and climb the global leaderboard!*
+
+## 📝 Changelog
+
+- **2025-12-27**: Fix — `LoginForm.jsx` import and effect dependency updated to ensure successful logins reliably redirect to `/`. This addresses intermittent failures where `router.push('/')` did not run after login.
+

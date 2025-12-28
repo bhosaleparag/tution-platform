@@ -1,14 +1,15 @@
 "use client";
-import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import NavLinks from './NavLinks';
 import UserMenu from './UserMenu';
 import Typography from '../ui/Typography';
+import { useRouter } from 'next/navigation';
 
 export default function NavBar() {
   const [isScrolled, setIsScrolled] = useState(false);
-
+  const router = useRouter();
+  
   // Add scroll effect
   useEffect(() => {
     const handleScroll = () => {
@@ -29,8 +30,8 @@ export default function NavBar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link 
-            href='/' 
+          <div 
+            onClick={()=>router.push('/')}
             className="flex items-center gap-3 group transition-all duration-300 hover:scale-105"
           >
             <div className="relative">
@@ -52,7 +53,7 @@ export default function NavBar() {
                 Learn • Practice • Excel
               </div>
             </div>
-          </Link>
+          </div>
 
           {/* Navigation Links */}
           <div className='flex-1 flex justify-end lg:justify-center'>
