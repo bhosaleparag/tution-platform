@@ -19,17 +19,11 @@ export default function UserMenu() {
       ) : (
         <>
           <Button 
-            variant="outlined" 
+            variant="primary" 
             onClick={() => router.push('/login')}
             className="hidden sm:flex"
           >
             Login
-          </Button>
-          <Button 
-            onClick={() => router.push('/register')}
-          >
-            <span className="hidden sm:inline">Sign Up</span>
-            <span className="sm:hidden">Join</span>
           </Button>
         </>
       )}

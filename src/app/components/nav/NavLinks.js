@@ -2,10 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
-import Link from 'next/link';
 import { ChevronDown, Menu, X } from 'lucide-react';
 import Tooltip from '../ui/Tooltip';
-import { MenuRoutes, SecondaryRoutes, StudentRoutes, TeacherRoutes, AdminRoutes } from '@/lib/constants';
+import { SecondaryRoutes, StudentRoutes, TeacherRoutes, AdminRoutes } from '@/lib/constants';
 import useAuth from '@/hooks/useAuth';
 
 export default function NavLinks() {
@@ -17,7 +16,7 @@ export default function NavLinks() {
 
   // Get role-based routes
   const getRoutes = () => {
-    if (!isLoggedIn || !user) return MenuRoutes;
+    if (!isLoggedIn || !user) return [];
     const role = user.role || 'student';
     if (role === 'admin') return AdminRoutes;
     if (role === 'teacher') return TeacherRoutes;
@@ -148,7 +147,7 @@ export default function NavLinks() {
         </div>
 
         {/* More dropdown for remaining routes */}
-        {(currentRoutes.length > 4 || SecondaryRoutes.length > 0) && (
+        {(isLoggedIn && (currentRoutes.length > 4 || SecondaryRoutes.length > 0)) && (
           <div className="relative">
             <button
               onClick={() => setShowMore(!showMore)}
@@ -229,7 +228,7 @@ export default function NavLinks() {
               <div className="space-y-2">
                 {currentRoutes.map((route) => renderNavLink(route, true))}
                 
-                {SecondaryRoutes.length > 0 && (
+                {isLoggedIn && SecondaryRoutes.length > 0 && (
                   <>
                     <div className="border-t border-gray-20 my-4"></div>
                     <div className="space-y-2">

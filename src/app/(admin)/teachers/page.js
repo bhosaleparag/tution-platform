@@ -5,7 +5,7 @@ import Input from '@/components/ui/Input';
 import TeacherInviteDialog from '@/components/teachers/teacher-invite-dialog';
 import DeleteConfirmDialog from '@/components/teachers/delete-confirm-dialog';
 import TeacherCard from '@/components/teachers/teacher-card';
-import { deleteTeacher, fetchInvitedTeachers, fetchTeachers, updateTeacher } from '@/api/firebase/teachers';
+import { deleteInvite, deleteTeacher, fetchInvitedTeachers, fetchTeachers, updateTeacher } from '@/api/firebase/teachers';
 import { fetchActiveInstitutes } from '@/api/firebase/schools';
 import { createTeacherInvite, resendTeacherInvite } from '@/api/actions/teachers';
 
@@ -42,8 +42,9 @@ export default function TeacherManagementPage() {
 
   // Invite teacher handler
   const handleInviteTeacher = async (formData) => {
+    console.log('formData', formData);
     const result = await createTeacherInvite(formData);
-    
+    console.log('result', result);
     if (result.success) {
       // Refresh teachers list
       const updatedInvites = await fetchInvitedTeachers();
@@ -70,11 +71,11 @@ export default function TeacherManagementPage() {
   const handleDeleteTeacher = async () => {
     try {
       if (activeTab === "invited") {
-        await deleteInvite(selectedItem.id);
-        setInvites(invites.filter(inv => inv.id !== selectedItem.id));
+        await deleteInvite(selectedTeacher.token);
+        setInvites(invites.filter(inv => inv.token !== selectedTeacher.token));
       } else {
-        await deleteTeacher(selectedItem.id);
-        setTeachers(teachers.filter(t => t.id !== selectedItem.id));
+        await deleteTeacher(selectedTeacher.token);
+        setTeachers(teachers.filter(t => t.token !== selectedTeacher.token));
       }
     } catch {
       alert("Failed to delete");
@@ -83,7 +84,7 @@ export default function TeacherManagementPage() {
 
   // Resend invite handler
   const handleResendInvite = async (teacher) => {
-    const result = await resendTeacherInvite(teacher.id);
+    const result = await resendTeacherInvite(teacher.token);
     
     if (result.success) {
       const updatedInvites = await fetchInvitedTeachers();

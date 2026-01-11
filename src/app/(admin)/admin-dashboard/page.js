@@ -13,7 +13,7 @@ export default function AdminDashboard() {
           <h1 className="text-3xl sm:text-4xl font-bold mb-2 text-white-99">
             Admin Dashboard
           </h1>
-          <p className="text-gray-60">Manage schools, classes, teachers, and students</p>
+          <p className="text-gray-60">Manage Institutions, subject, teachers</p>
         </div>
 
         {/* Admin Actions */}
@@ -23,17 +23,17 @@ export default function AdminDashboard() {
             className="bg-gray-15 border border-gray-20 hover:border-purple-60/30 p-6 rounded-xl transition-all"
           >
             <School className="w-8 h-8 mb-2" />
-            <div className="text-lg font-semibold">Schools</div>
-            <div className="text-sm text-gray-50">Manage schools</div>
+            <div className="text-lg font-semibold">Educational Institutions</div>
+            <div className="text-sm text-gray-50">Manage Educational Institutions</div>
           </button>
 
           <button
-            onClick={() => router.push('/classes')}
+            onClick={() => router.push('/subjects')}
             className="bg-gray-15 border border-gray-20 hover:border-purple-60/30 p-6 rounded-xl transition-all"
           >
             <GraduationCap className="w-8 h-8 mb-2" />
-            <div className="text-lg font-semibold">Classes</div>
-            <div className="text-sm text-gray-60">Manage classes</div>
+            <div className="text-lg font-semibold">Subject</div>
+            <div className="text-sm text-gray-60">Manage Subjects</div>
           </button>
 
           <button
@@ -43,15 +43,6 @@ export default function AdminDashboard() {
             <UserCheck className="w-8 h-8 mb-2" />
             <div className="text-lg font-semibold">Teachers</div>
             <div className="text-sm text-gray-60">Manage teachers</div>
-          </button>
-
-          <button
-            onClick={() => router.push('/all-students')}
-            className="bg-gray-15 border border-gray-20 hover:border-purple-60/30 p-6 rounded-xl transition-all"
-          >
-            <Users className="w-8 h-8 mb-2" />
-            <div className="text-lg font-semibold">Students</div>
-            <div className="text-sm text-gray-60">Manage students</div>
           </button>
         </div>
       </div>

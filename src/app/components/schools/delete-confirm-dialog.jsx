@@ -17,9 +17,9 @@ const DeleteConfirmDialog = ({ open, onOpenChange, school, onConfirm }) => {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Delete School</DialogTitle>
+          <DialogTitle>Delete Institution</DialogTitle>
           <DialogDescription>
-            Are you sure you want to delete this school? This action cannot be undone.
+            Are you sure you want to delete this Institution? This action cannot be undone.
           </DialogDescription>
         </DialogHeader>
 

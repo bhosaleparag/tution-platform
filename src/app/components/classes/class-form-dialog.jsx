@@ -102,7 +102,7 @@ const ClassFormDialog = ({ open, onOpenChange, classData, onSubmit, subjects }) 
             <Select
               value={formData.subjects}
               onChange={(value) => setFormData({ ...formData, subjects: value })}
-              options={subjects.map(s => ({ value: s.id, label: s.name }))}
+              options={subjects?.map(s => ({ value: s.id, label: s.name }))}
               placeholder="Select subjects for this class"
               multiple
             />

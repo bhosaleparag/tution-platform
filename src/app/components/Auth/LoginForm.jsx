@@ -18,23 +18,27 @@ export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
-  if (!state) return;
+    if (!state) return;
 
     if (state.success) {
-      setUser(state.userDetails);
+      const login = async () => {
+        await setUser(state.userDetails);
+        
+        toast.success('Welcome back!', {
+          description: "You're now logged in",
+          duration: 2000,
+        });
 
-      toast.success('Welcome back!', {
-        description: "You're now logged in",
-        duration: 2000,
-      });
-
-      router.replace('/');
+        router.replace('/');
+      };
+      
+      login();
     } else if (state.message) {
       toast.error(state.message, {
         duration: 2000,
       });
     }
-  }, [state, router]);
+  }, [state, router, setUser]);
 
 
   return (

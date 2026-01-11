@@ -34,10 +34,10 @@ const SchoolFormDialog = ({ open, onOpenChange, school, onSubmit }) => {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>
-            {school ? 'Edit School' : 'Add New School'}
+            {school ? 'Edit Institution' : 'Add New Institution'}
           </DialogTitle>
           <DialogDescription>
-            {school ? 'Update school details below' : 'Enter school information to create new institute'}
+            {school ? 'Update Institution details below' : 'Enter Institution information to create new institute'}
           </DialogDescription>
         </DialogHeader>
 
@@ -46,8 +46,8 @@ const SchoolFormDialog = ({ open, onOpenChange, school, onSubmit }) => {
             <Input
               type="text"
               value={formData.name}
-              label='School Name *'
-              placeholder="e.g., Cambridge Institute"
+              label='Institution Name *'
+              placeholder="e.g., ABC Institute"
               onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             />
@@ -59,7 +59,7 @@ const SchoolFormDialog = ({ open, onOpenChange, school, onSubmit }) => {
                 Active Status
               </label>
               <p className="text-xs text-[#999999] mt-1">
-                {formData.isActive ? 'School is currently active' : 'School is currently inactive'}
+                {formData.isActive ? 'Institution is currently active' : 'Institution is currently inactive'}
               </p>
             </div>
             <ToggleSwitch 
@@ -84,7 +84,7 @@ const SchoolFormDialog = ({ open, onOpenChange, school, onSubmit }) => {
             disabled={loading || !formData.name.trim()}
             className="px-5 py-2.5 rounded-xl bg-[#703bf7] text-white hover:bg-[#8254f8] transition font-medium disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {loading ? 'Saving...' : school ? 'Update School' : 'Create School'}
+            {loading ? 'Saving...' : school ? 'Update Institution' : 'Create Institution'}
           </button>
         </DialogFooter>
       </DialogContent>

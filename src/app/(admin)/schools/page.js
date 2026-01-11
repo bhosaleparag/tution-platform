@@ -85,7 +85,7 @@ export default function SchoolManagementPage() {
         <div className="mb-8">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h1 className="text-4xl font-bold text-white mb-2">School Management</h1>
+              <h1 className="text-4xl font-bold text-white mb-2">Educational Institutions Management</h1>
               <p className="text-gray-60">Manage all institutes in the platform</p>
             </div>
             <button
@@ -93,24 +93,24 @@ export default function SchoolManagementPage() {
               className="px-6 py-3 rounded-xl bg-purple-60 text-white hover:bg-purple-65 transition flex items-center gap-2 font-medium shadow-lg shadow-purple-60/20"
             >
               <Plus className="w-5 h-5" />
-              Add School
+              Add Institution
             </button>
           </div>
 
           {/* Stats Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
             <div className="bg-gray-15 rounded-2xl p-6">
-              <p className="text-gray-60 text-sm mb-1">Total Schools</p>
+              <p className="text-gray-60 text-sm mb-1">Total Institution</p>
               <p className="text-3xl font-bold text-white">{schools.length}</p>
             </div>
             <div className="bg-gray-15 rounded-2xl p-6">
-              <p className="text-gray-60 text-sm mb-1">Active Schools</p>
+              <p className="text-gray-60 text-sm mb-1">Active Institution</p>
               <p className="text-3xl font-bold text-green-500">
                 {schools.filter(s => s.isActive).length}
               </p>
             </div>
             <div className="bg-gray-15 rounded-2xl p-6">
-              <p className="text-gray-60 text-sm mb-1">Inactive Schools</p>
+              <p className="text-gray-60 text-sm mb-1">Inactive Institution</p>
               <p className="text-3xl font-bold text-gray-60">
                 {schools.filter(s => !s.isActive).length}
               </p>
@@ -131,7 +131,7 @@ export default function SchoolManagementPage() {
         {/* School Cards Grid */}
         {loading ? (
           <div className="flex items-center justify-center py-20">
-            <div className="text-gray-60">Loading schools...</div>
+            <div className="text-gray-60">Loading Institution...</div>
           </div>
         ) : filteredSchools.length === 0 ? (
           <div className="text-center py-20">
