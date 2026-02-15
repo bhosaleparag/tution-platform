@@ -54,7 +54,7 @@ export default function NavLinks() {
     return !publicRoutes.includes(href);
   };
 
-  // ADD THIS FUNCTION - Handle navigation with auth check
+  // Handle navigation with auth check
   const handleNavigation = (e, route, isMobile) => {
     e.preventDefault();
     

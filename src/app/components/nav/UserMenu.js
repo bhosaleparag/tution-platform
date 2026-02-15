@@ -21,7 +21,7 @@ export default function UserMenu() {
           <Button 
             variant="primary" 
             onClick={() => router.push('/login')}
-            className="hidden sm:flex"
+            className="flex"
           >
             Login
           </Button>

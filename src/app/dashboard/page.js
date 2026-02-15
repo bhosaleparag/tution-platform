@@ -275,12 +275,6 @@ function LandingPage() {
                 Create Free Exam
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
               </button>
-              <button 
-                onClick={() => window.open('https://youtube.com', '_blank')}
-                className="px-6 sm:px-8 py-3 sm:py-4 border border-gray-15 hover:border-purple-60/30 rounded-xl text-base sm:text-lg font-semibold transition-all duration-300 bg-gradient-to-br from-gray-10 to-gray-08"
-              >
-                Watch Demo
-              </button>
             </div>
           </div>
         </div>
