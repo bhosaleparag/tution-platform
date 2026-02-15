@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 80">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c084fc" />
+      <stop offset="100%" stop-color="#e879f9" />
+    </linearGradient>
+  </defs>
+
+  <g stroke="url(#grad1)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" transform="translate(-15, -10)">
+    <path d="M 66 18 C 55 18 48 24 48 35 C 46 35 44 36 43 38 C 40 38 38 40 38 43 C 36 43 35 45 35 47 C 35 50 36 52 38 53 C 38 55 39 56 41 57 C 41 59 42 61 45 61 C 46 64 49 66 53 66 C 56 68 60 68 64 66" />
+    <path d="M 52 24 L 56 28 L 56 38" /> <circle cx="52" cy="24" r="1.5" />
+    <path d="M 46 40 L 52 40 L 58 46 L 64 46" /> <circle cx="46" cy="40" r="1.5" />
+    <path d="M 44 50 L 50 50 L 54 46" /> <circle cx="44" cy="50" r="1.5" />
+    <path d="M 54 62 L 54 58 L 60 52" /> <circle cx="54" cy="62" r="1.5" />
+
+    <path d="M 70 18 L 80 18 C 88 18 92 22 92 30 L 92 48" />
+    <path d="M 70 18 C 68 18 66 19 65 21" />
+    <path d="M 64 24 L 64 56 C 64 62 68 66 74 66 L 76 66" />
+    <rect x="74" y="22" width="8" height="12" rx="4" />
+    <path d="M 82 50 L 94 62 L 88 62 L 92 70 L 88 72 L 84 64 L 80 68 Z" />
+  </g>
+
+  <g transform="translate(0, 0)">
+    <text x="0" y="78" font-family="Arial, sans-serif" font-weight="bold" font-size="18" fill="white">Smart</text>
+    <text x="56" y="78" font-family="Arial, sans-serif" font-weight="bold" font-size="18" fill="url(#grad1)">Click</text>
+  </g>
+</svg>
