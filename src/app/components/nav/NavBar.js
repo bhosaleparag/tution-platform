@@ -31,15 +31,15 @@ export default function NavBar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div 
-            onClick={()=>router.push('/')}
+            onClick={()=>router.push('/dashboard')}
             className="flex items-center gap-3 group transition-all duration-300 hover:scale-105"
           >
             <div className="relative">
               <Image 
-                src='/devLogo.png'
+                src='/smart-click.svg'
                 alt='Dev Battle logo' 
-                width={45} 
-                height={45}
+                width={60} 
+                height={60}
                 className="transition-transform duration-300 group-hover:rotate-12"
               />
               {/* Glow effect */}
@@ -47,10 +47,10 @@ export default function NavBar() {
             </div>
             <div className="hidden sm:block">
               <Typography variant="h3" as="h1" className="bg-gradient-to-r from-white to-gray-50 bg-clip-text text-transparent font-bold">
-                Quiz App
+                Exam Expert
               </Typography>
               <div className="text-xs text-gray-60 -mt-1">
-                Learn • Practice • Excel
+                Simple • Secure • Smart
               </div>
             </div>
           </div>
